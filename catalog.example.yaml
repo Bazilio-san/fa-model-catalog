@@ -1,0 +1,2215 @@
+currency: USD
+models:
+  codex-mini-latest:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1.5
+    inpB: 1.5
+    inpC: 1.5
+    inpCF: 1.5
+    inpF: 1.5
+    inpFast: 1.5
+    inpW: 1.5
+    inpWF: 1.5
+    kT: 200
+    modes:
+      - standard
+    mot: 100
+    out: 6
+    outB: 6
+    outF: 6
+    outFast: 6
+  computer-use-preview:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 0
+    modes:
+      - standard
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  curie-search-document:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 0
+    modes:
+      - standard
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  curie-search-query:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 0
+    modes:
+      - standard
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  dall-e-3:
+    billing:
+      kind: quantity
+      per: 1
+      unit: images
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.04
+    inpB: 0.04
+    inpC: 0.04
+    inpCF: 0.04
+    inpF: 0.04
+    inpFast: 0.04
+    inpW: 0.04
+    inpWF: 0.04
+    kT: 1
+    modes:
+      - standard
+    out: 0.04
+    outB: 0.04
+    outF: 0.04
+    outFast: 0.04
+  davinci-002:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2
+    inpB: 1
+    inpC: 2
+    inpCF: 2
+    inpF: 2
+    inpFast: 2
+    inpW: 2
+    inpWF: 2
+    kT: 1
+    modes:
+      - standard
+    out: 2
+    outB: 1
+    outF: 2
+    outFast: 2
+  davinci-search-document:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 0
+    modes:
+      - standard
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  davinci-search-query:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 0
+    modes:
+      - standard
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  finam@developer: gpt-5.6-luna
+  finam@developer_fast: gpt-5.6-luna
+  glm5.3-flash:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.15
+    inpB: 0.15
+    inpC: 0.03
+    inpCF: 0.03
+    inpF: 0.15
+    inpFast: 0.15
+    inpW: 0.15
+    inpWF: 0.15
+    kT: 1310
+    modes:
+      - standard
+    mot: 131
+    out: 0.5
+    outB: 0.5
+    outF: 0.5
+    outFast: 0.5
+  gpt-4.1:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2
+    inpB: 1
+    inpC: 0.5
+    inpCF: 0.5
+    inpF: 2
+    inpFast: 3.5
+    inpW: 2
+    inpWF: 2
+    kT: 1047
+    modes:
+      - standard
+    mot: 32
+    out: 8
+    outB: 4
+    outF: 8
+    outFast: 14
+  gpt-4.1-mini:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.4
+    inpB: 0.2
+    inpC: 0.1
+    inpCF: 0.1
+    inpF: 0.4
+    inpFast: 0.7
+    inpW: 0.4
+    inpWF: 0.4
+    kT: 1047
+    modes:
+      - standard
+    mot: 32
+    out: 1.6
+    outB: 0.8
+    outF: 1.6
+    outFast: 2.8
+  gpt-4.1-nano:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.1
+    inpB: 0.05
+    inpC: 0.025
+    inpCF: 0.025
+    inpF: 0.1
+    inpFast: 0.2
+    inpW: 0.1
+    inpWF: 0.1
+    kT: 1047
+    modes:
+      - standard
+    mot: 32.768
+    out: 0.4
+    outB: 0.2
+    outF: 0.4
+    outFast: 0.8
+  gpt-4o:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2.5
+    inpB: 1.25
+    inpC: 1.25
+    inpCF: 1.25
+    inpF: 2.5
+    inpFast: 4.25
+    inpW: 2.5
+    inpWF: 2.5
+    kT: 128
+    modes:
+      - standard
+    mot: 16.384
+    out: 10
+    outB: 5
+    outF: 10
+    outFast: 17
+  gpt-4o-audio-preview:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2.5
+    inpB: 2.5
+    inpC: 2.5
+    inpCF: 2.5
+    inpF: 2.5
+    inpFast: 2.5
+    inpW: 2.5
+    inpWF: 2.5
+    kT: 128
+    modes:
+      - standard
+    mot: 16.384
+    out: 10
+    outB: 10
+    outF: 10
+    outFast: 10
+  gpt-4o-mini:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.15
+    inpB: 0.075
+    inpC: 0.075
+    inpCF: 0.075
+    inpF: 0.15
+    inpFast: 0.25
+    inpW: 0.15
+    inpWF: 0.15
+    kT: 128
+    modes:
+      - standard
+    mot: 16.384
+    out: 0.6
+    outB: 0.3
+    outF: 0.6
+    outFast: 1
+  gpt-4o-mini-audio-preview:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 0
+    modes:
+      - standard
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  gpt-4o-mini-realtime-preview:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 0
+    modes:
+      - standard
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  gpt-4o-mini-search-preview:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 0
+    modes:
+      - standard
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  gpt-4o-mini-transcribe:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1.25
+    inpB: 1.25
+    inpC: 1.25
+    inpCF: 1.25
+    inpF: 1.25
+    inpFast: 1.25
+    inpW: 1.25
+    inpWF: 1.25
+    kT: 16
+    modes:
+      - standard
+    mot: 2
+    out: 5
+    outB: 5
+    outF: 5
+    outFast: 5
+  gpt-4o-mini-tts:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.6
+    inpB: 0.6
+    inpC: 0.6
+    inpCF: 0.6
+    inpF: 0.6
+    inpFast: 0.6
+    inpW: 0.6
+    inpWF: 0.6
+    kT: 0
+    modes:
+      - standard
+    out: 12
+    outB: 12
+    outF: 12
+    outFast: 12
+  gpt-4o-realtime-preview:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 5
+    inpB: 5
+    inpC: 5
+    inpCF: 5
+    inpF: 5
+    inpFast: 5
+    inpW: 5
+    inpWF: 5
+    kT: 128
+    modes:
+      - standard
+    out: 20
+    outB: 20
+    outF: 20
+    outFast: 20
+  gpt-4o-search-preview:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 0
+    modes:
+      - standard
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  gpt-4o-transcribe:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2.5
+    inpB: 2.5
+    inpC: 2.5
+    inpCF: 2.5
+    inpF: 2.5
+    inpFast: 2.5
+    inpW: 2.5
+    inpWF: 2.5
+    kT: 16
+    modes:
+      - standard
+    mot: 2
+    out: 10
+    outB: 10
+    outF: 10
+    outFast: 10
+  gpt-4o-transcribe-diarize:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2.5
+    inpB: 2.5
+    inpC: 2.5
+    inpCF: 2.5
+    inpF: 2.5
+    inpFast: 2.5
+    inpW: 2.5
+    inpWF: 2.5
+    kT: 16
+    modes:
+      - standard
+    mot: 2
+    out: 10
+    outB: 10
+    outF: 10
+    outFast: 10
+  gpt-5:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1.25
+    inpB: 0.625
+    inpC: 0.125
+    inpCF: 0.0625
+    inpF: 0.625
+    inpFast: 2.5
+    inpW: 1.25
+    inpWF: 0.625
+    kT: 400
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 10
+    outB: 5
+    outF: 5
+    outFast: 20
+  gpt-5-mini:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.25
+    inpB: 0.125
+    inpC: 0.025
+    inpCF: 0.0125
+    inpF: 0.125
+    inpFast: 0.45
+    inpW: 0.25
+    inpWF: 0.125
+    kT: 400
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 2
+    outB: 1
+    outF: 1
+    outFast: 3.6
+  gpt-5-nano:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.05
+    inpB: 0.025
+    inpC: 0.005
+    inpCF: 0.0025
+    inpF: 0.025
+    inpFast: 0.05
+    inpW: 0.05
+    inpWF: 0.025
+    kT: 400
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 0.4
+    outB: 0.2
+    outF: 0.2
+    outFast: 0.4
+  gpt-5-search-api:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason: 'Cache read rates differ: 0.125 and 1.25. The value 0.125 from fa-harness, ktalk-sufler, and mem-bot is
+        preserved; both original values were recorded in the initial audit, without provider confirmation.'
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1.25
+    inpB: 1.25
+    inpC: 0.125
+    inpCF: 0.125
+    inpF: 1.25
+    inpFast: 1.25
+    inpW: 1.25
+    inpWF: 1.25
+    kT: 400
+    modes:
+      - standard
+    mot: 128
+    out: 10
+    outB: 10
+    outF: 10
+    outFast: 10
+  gpt-5.1:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1.25
+    inpB: 0.625
+    inpC: 0.125
+    inpCF: 0.0625
+    inpF: 0.625
+    inpFast: 2.5
+    inpW: 1.25
+    inpWF: 0.625
+    kT: 400
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 10
+    outB: 5
+    outF: 5
+    outFast: 20
+  gpt-5.2:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1.75
+    inpB: 0.875
+    inpC: 0.175
+    inpCF: 0.0875
+    inpF: 0.875
+    inpFast: 3.5
+    inpW: 1.75
+    inpWF: 0.875
+    kT: 400
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 14
+    outB: 7
+    outF: 7
+    outFast: 28
+  gpt-5.2-codex:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1.75
+    inpB: 1.75
+    inpC: 0.175
+    inpCF: 0.175
+    inpF: 1.75
+    inpFast: 1.75
+    inpW: 1.75
+    inpWF: 1.75
+    kT: 400
+    modes:
+      - standard
+    mot: 128
+    out: 14
+    outB: 14
+    outF: 14
+    outFast: 14
+  gpt-5.3-codex:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1.75
+    inpB: 1.75
+    inpC: 0.175
+    inpCF: 0.175
+    inpF: 1.75
+    inpFast: 3.5
+    inpW: 1.75
+    inpWF: 1.75
+    kT: 400
+    modes:
+      - standard
+    mot: 128
+    out: 14
+    outB: 14
+    outF: 14
+    outFast: 28
+  gpt-5.4:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason: 'Source Flex cache read rates differ: 0.13 and 0.125. The exact value 0.125 from uc-bot-sync and EEI was
+        selected; both values were recorded in the initial audit. Current provider pricing is unverified.'
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2.5
+    inpB: 1.25
+    inpC: 0.25
+    inpCF: 0.125
+    inpF: 1.25
+    inpFast: 5
+    inpW: 2.5
+    inpWF: 1.25
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 15
+    outB: 7.5
+    outF: 7.5
+    outFast: 30
+  gpt-5.4-2026-03-05: gpt-5.4
+  gpt-5.4-mini:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.75
+    inpB: 0.375
+    inpC: 0.075
+    inpCF: 0.0375
+    inpF: 0.375
+    inpFast: 1.5
+    inpW: 0.75
+    inpWF: 0.375
+    kT: 400
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 4.5
+    outB: 2.25
+    outF: 2.25
+    outFast: 9
+  gpt-5.4-nano:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.2
+    inpB: 0.1
+    inpC: 0.02
+    inpCF: 0.01
+    inpF: 0.1
+    inpFast: 0.2
+    inpW: 0.2
+    inpWF: 0.1
+    kT: 400
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 1.25
+    outB: 0.625
+    outF: 0.625
+    outFast: 1.25
+  gpt-5.5:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 5
+    inpB: 2.5
+    inpC: 0.5
+    inpCF: 0.25
+    inpF: 2.5
+    inpFast: 12.5
+    inpW: 5
+    inpWF: 2.5
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 30
+    outB: 15
+    outF: 15
+    outFast: 75
+  gpt-5.6-luna:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: true
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.2
+    inpB: 0.1
+    inpC: 0.02
+    inpCF: 0.01
+    inpF: 0.1
+    inpFast: 0.4
+    inpW: 0.25
+    inpWF: 0.125
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 1.2
+    outB: 0.6
+    outF: 0.6
+    outFast: 2.4
+  gpt-5.6-sol:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: true
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 5
+    inpB: 2.5
+    inpC: 0.5
+    inpCF: 0.25
+    inpF: 2.5
+    inpFast: 10
+    inpW: 6.25
+    inpWF: 3.125
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 30
+    outB: 15
+    outF: 15
+    outFast: 60
+  gpt-5.6-terra:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: true
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2
+    inpB: 1
+    inpC: 0.2
+    inpCF: 0.1
+    inpF: 1
+    inpFast: 4
+    inpW: 2.5
+    inpWF: 1.25
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 12
+    outB: 6
+    outF: 6
+    outFast: 24
+  gpt-6-astra:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: true
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 10
+    inpB: 5
+    inpC: 1
+    inpCF: 0.5
+    inpF: 5
+    inpFast: 20
+    inpW: 12.5
+    inpWF: 6.25
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 50
+    outB: 25
+    outF: 25
+    outFast: 100
+  gpt-6-luna:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: true
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.1
+    inpB: 0.05
+    inpC: 0.01
+    inpCF: 0.005
+    inpF: 0.05
+    inpFast: 0.2
+    inpW: 0.125
+    inpWF: 0.0625
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 0.5
+    outB: 0.25
+    outF: 0.25
+    outFast: 1
+  gpt-6-sol:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: true
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2
+    inpB: 1
+    inpC: 0.2
+    inpCF: 0.1
+    inpF: 1
+    inpFast: 4
+    inpW: 2.5
+    inpWF: 1.25
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 10
+    outB: 5
+    outF: 5
+    outFast: 20
+  gpt-6.1-sol:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: true
+      promptCacheKey: true
+      reasoningEfforts:
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2
+    inpB: 1
+    inpC: 0.1
+    inpCF: 0.05
+    inpF: 1
+    inpFast: 4
+    inpW: 2.5
+    inpWF: 1.25
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 10
+    outB: 5
+    outF: 5
+    outFast: 20
+  gpt-6.1-sol-2026-03-05: gpt-6.1-sol
+  gpt-6.1-terra:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: true
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1
+    inpB: 0.5
+    inpC: 0.05
+    inpCF: 0.025
+    inpF: 0.5
+    inpFast: 2
+    inpW: 1.25
+    inpWF: 0.625
+    kT: 1050
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 128
+    out: 5
+    outB: 2.5
+    outF: 2.5
+    outFast: 10
+  gpt-audio:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2.5
+    inpB: 2.5
+    inpC: 2.5
+    inpCF: 2.5
+    inpF: 2.5
+    inpFast: 2.5
+    inpW: 2.5
+    inpWF: 2.5
+    kT: 128
+    modes:
+      - standard
+    mot: 16.384
+    out: 10
+    outB: 10
+    outF: 10
+    outFast: 10
+  gpt-audio-1.5:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2.5
+    inpB: 2.5
+    inpC: 2.5
+    inpCF: 2.5
+    inpF: 2.5
+    inpFast: 2.5
+    inpW: 2.5
+    inpWF: 2.5
+    kT: 128
+    modes:
+      - standard
+    mot: 16.384
+    out: 10
+    outB: 10
+    outF: 10
+    outFast: 10
+  gpt-audio-mini:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.6
+    inpB: 0.6
+    inpC: 0.6
+    inpCF: 0.6
+    inpF: 0.6
+    inpFast: 0.6
+    inpW: 0.6
+    inpWF: 0.6
+    kT: 128
+    modes:
+      - standard
+    mot: 16.384
+    out: 2.4
+    outB: 2.4
+    outF: 2.4
+    outFast: 2.4
+  gpt-image-2:
+    billing:
+      kind: matrix
+      per: 1
+      unit: images
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    high:
+      1024x1024: 0.211
+      1024x1536: 0.165
+      1536x1024: 0.165
+    low:
+      1024x1024: 0.006
+      1024x1536: 0.005
+      1536x1024: 0.005
+    medium:
+      1024x1024: 0.053
+      1024x1536: 0.041
+      1536x1024: 0.041
+    modes:
+      - standard
+  gpt-realtime:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 4
+    inpB: 4
+    inpC: 0.4
+    inpCF: 0.4
+    inpF: 4
+    inpFast: 4
+    inpW: 4
+    inpWF: 4
+    kT: 32
+    modes:
+      - standard
+    mot: 4.096
+    out: 16
+    outB: 16
+    outF: 16
+    outFast: 16
+  gpt-realtime-1.5:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 4
+    inpB: 4
+    inpC: 0.4
+    inpCF: 0.4
+    inpF: 4
+    inpFast: 4
+    inpW: 4
+    inpWF: 4
+    kT: 32
+    modes:
+      - standard
+    mot: 4.096
+    out: 16
+    outB: 16
+    outF: 16
+    outFast: 16
+  gpt-realtime-mini:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
+        be applied to audio units.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.6
+    inpB: 0.6
+    inpC: 0.06
+    inpCF: 0.06
+    inpF: 0.6
+    inpFast: 0.6
+    inpW: 0.6
+    inpWF: 0.6
+    kT: 32
+    modes:
+      - standard
+    mot: 4.096
+    out: 2.4
+    outB: 2.4
+    outF: 2.4
+    outFast: 2.4
+  o4-mini:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 1.1
+    inpB: 0.55
+    inpC: 0.275
+    inpCF: 0.138
+    inpF: 0.55
+    inpFast: 2
+    inpW: 1.1
+    inpWF: 0.55
+    kT: 200
+    modes:
+      - standard
+      - flex
+      - batch
+      - fast
+    mot: 100
+    out: 4.4
+    outB: 2.2
+    outF: 2.2
+    outFast: 8
+  o4-mini-deep-research:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 2
+    inpB: 2
+    inpC: 2
+    inpCF: 2
+    inpF: 2
+    inpFast: 2
+    inpW: 2
+    inpWF: 2
+    kT: 200
+    modes:
+      - standard
+    mot: 100
+    out: 8
+    outB: 8
+    outF: 8
+    outFast: 8
+  openai/gpt-4o-mini-tts: gpt-4o-mini-tts
+  openai/gpt-5.4: gpt-5.4
+  openai/gpt-5.4-mini: gpt-5.4-mini
+  openai/gpt-5.4-nano: gpt-5.4-nano
+  openai/gpt-5.6-luna: gpt-5.6-luna
+  openai/gpt-5.6-sol: gpt-5.6-sol
+  openai/gpt-5.6-terra: gpt-5.6-terra
+  openai/gpt-6-astra: gpt-6-astra
+  openai/gpt-6-luna: gpt-6-luna
+  openai/gpt-6-sol: gpt-6-sol
+  openai/gpt-6.1-sol: gpt-6.1-sol
+  openai/gpt-6.1-terra: gpt-6.1-terra
+  openai/text-embedding-3-large:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - uc-bot-sync:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.13
+    inpC: 0.13
+    inpCF: 0.13
+    inpF: 0.13
+    inpW: 0.13
+    inpWF: 0.13
+    kT: 8.192
+    modes:
+      - standard
+    out: 0.13
+    outF: 0.13
+  openrouter/z-ai/glm-5.3-flash: glm5.3-flash
+  sora-2:
+    billing:
+      kind: quantity
+      per: 1
+      unit: seconds
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 999
+    modes:
+      - standard
+    mot: 999
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  sora-2-pro:
+    billing:
+      kind: quantity
+      per: 1
+      unit: seconds
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts: []
+    evidence:
+      reason:
+        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
+        values are preserved for conditional calculations.'
+      sources:
+        - mem-bot:src/services/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0
+    inpB: 0
+    inpC: 0
+    inpCF: 0
+    inpF: 0
+    inpFast: 0
+    inpW: 0
+    inpWF: 0
+    kT: 999
+    modes:
+      - standard
+    mot: 999
+    out: 0
+    outB: 0
+    outF: 0
+    outFast: 0
+  text-embedding-3-large:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    dimensions:
+      - 256
+      - 1024
+      - 1536
+      - 3072
+    dimensionsAllowed: true
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.13
+    inpB: 0.13
+    inpC: 0.13
+    inpCF: 0.13
+    inpF: 0.13
+    inpFast: 0.13
+    inpW: 0.13
+    inpWF: 0.13
+    kT: 8.192
+    modes:
+      - standard
+    out: 0.13
+    outB: 0.13
+    outF: 0.13
+    outFast: 0.13
+  text-embedding-3-small:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    dimensions:
+      - 512
+      - 1536
+    dimensionsAllowed: true
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.02
+    inpB: 0.02
+    inpC: 0.02
+    inpCF: 0.02
+    inpF: 0.02
+    inpFast: 0.02
+    inpW: 0.02
+    inpWF: 0.02
+    kT: 8.192
+    modes:
+      - standard
+    out: 0.02
+    outB: 0.02
+    outF: 0.02
+    outFast: 0.02
+  tts-1:
+    billing:
+      kind: quantity
+      per: 1000000
+      unit: characters
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 15
+    inpB: 15
+    inpC: 15
+    inpCF: 15
+    inpF: 15
+    inpFast: 15
+    inpW: 15
+    inpWF: 15
+    kT: 1
+    modes:
+      - standard
+    out: 15
+    outB: 15
+    outF: 15
+    outFast: 15
+  tts-1-hd:
+    billing:
+      kind: quantity
+      per: 1000000
+      unit: characters
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 30
+    inpB: 30
+    inpC: 30
+    inpCF: 30
+    inpF: 30
+    inpFast: 30
+    inpW: 30
+    inpWF: 30
+    kT: 1
+    modes:
+      - standard
+    out: 30
+    outB: 30
+    outF: 30
+    outFast: 30
+  whisper-1:
+    billing:
+      kind: quantity
+      per: 1
+      unit: minutes
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: true
+      reasoningEfforts:
+        - none
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+    evidence:
+      reason:
+        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
+        been independently verified.
+      sources:
+        - fa-harness:src/services/llm/model-list.js
+        - https://developers.openai.com/api/docs/pricing
+      status: insufficient
+    inp: 0.006
+    inpB: 0.006
+    inpC: 0.006
+    inpCF: 0.006
+    inpF: 0.006
+    inpFast: 0.006
+    inpW: 0.006
+    inpWF: 0.006
+    kT: 1
+    modes:
+      - standard
+    out: 0.006
+    outB: 0.006
+    outF: 0.006
+    outFast: 0.006
+schemaVersion: 1

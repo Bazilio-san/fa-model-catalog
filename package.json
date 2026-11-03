@@ -1,0 +1,68 @@
+{
+  "name": "fa-model-catalog",
+  "version": "0.1.0",
+  "description": "Shared model catalog, pricing service, and client with cost calculation",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bazilio-san/fa-model-catalog.git"
+  },
+  "bin": {
+    "fa-model-catalog": "src/cli/server.js"
+  },
+  "files": [
+    "src/*.js",
+    "src/*.d.ts",
+    "src/schemas",
+    "src/cli",
+    "docs",
+    "catalog.example.yaml",
+    ".agents/skills/deploy/config/*.example.yaml",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "exports": {
+    "./client": {
+      "types": "./src/client.d.ts",
+      "import": "./src/client.js"
+    },
+    "./pricing": {
+      "types": "./src/pricing.d.ts",
+      "import": "./src/pricing.js"
+    },
+    "./server": {
+      "types": "./src/server.d.ts",
+      "import": "./src/server.js"
+    }
+  },
+  "scripts": {
+    "test": "npm run test:code",
+    "start": "node src/cli/server.js",
+    "catalog:check": "node src/cli/check.js",
+    "test:code": "node --test \"tests/unit/*.test.js\"",
+    "test:integration": "node --test \"tests/integration/*.test.js\"",
+    "lint": "oxlint src tests scripts .agents/skills",
+    "lint:fix": "oxlint --fix src tests scripts .agents/skills && npm run format",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "docs:check": "node scripts/checks/docs.js",
+    "type:check": "tsc --noEmit -p tsconfig.json",
+    "quality": "npm run test:code && npm run test:integration && npm run lint && npm run format:check && npm run type:check && npm run docs:check",
+    "prepublishOnly": "npm run quality"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "fa-web-access": "0.1.2",
+    "yaml": "2.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "oxfmt": "0.61.0",
+    "oxlint": "1.76.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.12"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "deny": [
+      "Edit(./.idea/**)",
+      "Edit(./.run/**)",
+      "Edit(./.venv/**)",
+      "Edit(./_misc/**)",
+      "Edit(./_misc_/**)",
+      "Edit(./_tmp/**)",
+      "Edit(./asset/**)",
+      "Edit(./backups/**)",
+      "Edit(./claudedocs/_invisible/**)",
+      "Edit(./dist/**)",
+      "Edit(./servers.local.md)",
+      "Edit(./**/*.local.*)",
+      "Edit(./**/*.private.*)",
+      "Edit(./**/*local-*)"
+    ]
+  },
+  "env": {
+    "NODE_TLS_REJECT_UNAUTHORIZED": "0",
+    "DISABLE_CLAUDE_NOTIFIER": 0,
+    "CLAUDE_NOTIFY_TELEGRAM": 1,
+    "CLAUDE_NOTIFY_WINDOWS": 1,
+    "CLAUDE_NOTIFY_SOUND": 0,
+    "CLAUDE_NOTIFY_VOICE": 0,
+    "CLAUDE_NOTIFY_WAITING": 0,
+    "CLAUDE_NOTIFY_DEBUG": 0
+  }
+}

@@ -1,0 +1,24 @@
+* text=auto eol=lf
+
+# Binary files do not need line-ending conversion.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.pdf binary
+*.docx binary
+*.xlsx binary
+*.xls binary
+*.pptx binary
+*.dump binary
+*.zip binary
+*.7z binary
+*.rar binary
+*.tgz binary
+*.bintext binary

@@ -1,0 +1,52 @@
+node_modules/
+servers.local.md
+config/*.local.yaml
+*.tgz
+coverage/
+
+# Local settings and private data.
+.env
+.env.*
+!.env.example
+*.local.*
+*.private.*
+
+# Build and test output.
+dist/
+build/
+out/
+.nyc_output/
+*.tsbuildinfo
+playwright-report/
+test-results/
+
+# Logs and temporary files.
+logs/
+_logs/
+*.log
+.tmp/
+temp/
+**/_tmp/
+_temp/
+.runtime/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+~$*.*
+
+# Local editor settings; already tracked files remain in Git.
+.idea/
+.vscode/
+.run/
+.junie/
+
+# Agent worktrees and completed plans.
+/.claude/skills
+/.claude/worktrees/
+/_prompts/done/*
+!/_prompts/done/.gitkeep
+
+/catalog.yaml
+
+/catalog.server.yaml
