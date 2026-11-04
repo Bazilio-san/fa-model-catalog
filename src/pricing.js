@@ -39,10 +39,14 @@ export function calculatePrice(record, usage, { serviceTier = 'standard' } = {})
   const quantities = structuredClone(usage);
   const parts = {};
   const add = (name, quantity, rate, per) => {
-    const valid = typeof quantity === 'number' && Number.isFinite(quantity) && quantity >= 0;
+    const valid =
+      typeof quantity === 'number' &&
+      Number.isFinite(quantity) &&
+      quantity >= 0 &&
+      (snapshot.billing.kind !== 'tokens' || Number.isSafeInteger(quantity));
     const known = typeof rate === 'number' && Number.isFinite(rate) && rate >= 0;
     const cost = valid && (known || quantity === 0) ? (quantity === 0 ? 0 : (quantity / per) * rate) : null;
-    parts[name] = { quantity, rate, per, costUsd: cost };
+    parts[name] = { quantity: quantity ?? null, rate, per, costUsd: cost };
     if (!valid) {
       issues.push(`Invalid quantity: ${name}.`);
     } else if (!known && quantity !== 0) {
@@ -68,7 +72,7 @@ export function calculatePrice(record, usage, { serviceTier = 'standard' } = {})
     }
     if (billing.kind === 'tokens') {
       const { inputTokens, outputTokens, cachedInputTokens = 0, cacheWriteInputTokens = 0 } = usage;
-      const values = [inputTokens, outputTokens, cachedInputTokens, cacheWriteInputTokens];
+      const values = [inputTokens, cachedInputTokens, cacheWriteInputTokens];
       const valid =
         values.every((n) => Number.isSafeInteger(n) && n >= 0) &&
         cachedInputTokens + cacheWriteInputTokens <= inputTokens;

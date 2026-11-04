@@ -55,6 +55,36 @@ test('Unknown rates, zero rates, incomplete usage, and stale pricing remain dist
   assert.equal(calculatePrice({ ...record(), status: 'not_found', model: null }, usage).priceUsd, null);
   assert.equal(calculatePrice(record({ modes: ['standard'] }), usage, { serviceTier: 'flex' }).priceUsd, null);
 });
+test('Missing or invalid output preserves every known input component', () => {
+  const { outputTokens: _outputTokens, ...inputOnly } = usage;
+  const cases = [
+    inputOnly,
+    ...[null, -1, 0.5, Infinity, Number.MAX_SAFE_INTEGER + 1, '50'].map((outputTokens) => ({
+      ...inputOnly,
+      outputTokens,
+    })),
+  ];
+  for (const partial of cases) {
+    const result = calculatePrice(record(), partial);
+    assert.deepEqual(result.usage, partial);
+    assert.equal(result.parts.input.quantity, 700);
+    for (const [name, expected] of Object.entries({
+      input: 0.0014,
+      cachedInput: 0.00004,
+      cacheWriteInput: 0.00025,
+    })) {
+      assert(Math.abs(result.parts[name].costUsd - expected) < 1e-15);
+    }
+    assert(Math.abs(result.knownSubtotalUsd - 0.00169) < 1e-15);
+    assert.equal(result.parts.output.costUsd, null);
+    assert.equal(result.priceUsd, null);
+    assert.equal(result.status, 'incomplete');
+    assert.deepEqual(result.issues, ['Invalid quantity: output.']);
+  }
+  const serialized = JSON.parse(JSON.stringify(calculatePrice(record(), inputOnly)));
+  assert.equal(serialized.parts.output.quantity, null);
+});
+
 test('Minutes, characters, and images are not treated as token units', () => {
   assert.equal(
     calculatePrice(record({ billing: { kind: 'quantity', unit: 'minutes', per: 1 }, inp: 0.006 }), {
