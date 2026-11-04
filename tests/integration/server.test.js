@@ -21,7 +21,7 @@ test('Access control, batch responses, limits, and key reloading', async (t) => 
     });
   assert.equal((await fetch(`${base}/health`)).status, 200);
   assert.equal((await send({ models: ['demo'] }, 'invalid')).status, 401);
-  const rows = await (await send({ models: ['demo', 'missing', 'demo', 'finam@developer'] })).json();
+  const rows = await (await send({ models: ['demo', 'missing', 'demo', 'example@developer'] })).json();
   assert.deepEqual(rows[0], rows[2]);
   assert.equal(rows[1].status, 'not_found');
   assert.equal(rows[3].canonicalName, 'demo');

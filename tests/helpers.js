@@ -22,7 +22,7 @@ export function model(overrides = {}) {
     ...overrides,
   };
 }
-export function catalog(models = { demo: model(), 'openai/demo': 'demo', 'finam@developer': 'demo' }) {
+export function catalog(models = { demo: model(), 'openai/demo': 'demo', 'example@developer': 'demo' }) {
   return stringify({ schemaVersion: 1, currency: 'USD', models });
 }
 export async function files(t) {

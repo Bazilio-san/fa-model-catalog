@@ -20,25 +20,42 @@ if (
   !Number.isInteger(config.port) ||
   config.port < 1 ||
   config.port > 65535 ||
-  config.repository !== 'https://github.com/Bazilio-san/fa-model-catalog.git'
+  typeof config.repository !== 'string' ||
+  !/^(?:https:\/\/|git@)[a-zA-Z0-9._:/@-]+$/.test(config.repository)
 ) {
   throw new Error('Invalid connection settings.');
 }
 const options = ['-o', 'BatchMode=yes', '-o', 'ConnectTimeout=15', '-i', config.keyPath];
 const destination = `${config.user}@${config.host}`;
-const app = '/var/opt/node/fa-model-catalog';
-const service = 'fa-model-catalog';
+const { appDirectory: app, serviceName: service, publicPort, tlsSnippet, branch } = settings.deployment;
+const runtime = settings.server;
+if (
+  !/^\/[a-zA-Z0-9_./-]+$/.test(app) ||
+  app.split('/').includes('..') ||
+  !/^\/[a-zA-Z0-9_./-]+$/.test(tlsSnippet) ||
+  tlsSnippet.split('/').includes('..') ||
+  !/^[a-zA-Z0-9_-]+$/.test(service) ||
+  !/^[a-zA-Z0-9_-][a-zA-Z0-9_/-]*$/.test(branch) ||
+  !Number.isInteger(publicPort) ||
+  publicPort < 1 ||
+  publicPort > 65535 ||
+  !Number.isInteger(runtime.port) ||
+  runtime.port < 1 ||
+  runtime.port > 65535 ||
+  !/^127\.0\.0\.1$/.test(runtime.host)
+) {
+  throw new Error('Invalid deployment settings.');
+}
+const healthUrl = `http://${runtime.host}:${runtime.port}/health`;
 if (command === 'deploy') {
-  const runtime = settings.server;
   if (
     !runtime ||
     Object.keys(runtime).some(
       (key) => !['accessFile', 'catalogFile', 'host', 'port', 'reloadIntervalMs'].includes(key),
     ) ||
-    runtime.accessFile !== '/etc/fa-model-catalog/access.yaml' ||
-    runtime.catalogFile !== '/var/opt/node/fa-model-catalog/catalog.yaml' ||
+    runtime.accessFile !== `/etc/${service}/access.yaml` ||
+    runtime.catalogFile !== `${app}/catalog.yaml` ||
     runtime.host !== '127.0.0.1' ||
-    runtime.port !== 19062 ||
     !Number.isFinite(runtime.reloadIntervalMs) ||
     runtime.reloadIntervalMs < 10
   ) {
@@ -80,11 +97,13 @@ async function step(name, fn) {
 async function uploadText(text, remote) {
   await run('ssh', [...options, '-p', String(config.port), destination, `umask 077; cat > ${remote}`], text);
 }
-const state = `systemctl is-active ${service}; curl --fail --silent http://127.0.0.1:19062/health; printf '\\n'; journalctl -u ${service} -n 8 --no-pager`;
+const state = `systemctl is-active ${service}; curl --fail --silent ${healthUrl}; printf '\\n'; journalctl -u ${service} -n 8 --no-pager`;
 try {
   if (command === 'inspect') {
     await step('Checking the environment', () =>
-      ssh('hostname\nnode --version\ncommand -v nginx\nss -H -ltn sport = :9062\nss -H -ltn sport = :19062\n'),
+      ssh(
+        `hostname\nnode --version\ncommand -v nginx\nss -H -ltn sport = :${publicPort}\nss -H -ltn sport = :${runtime.port}\n`,
+      ),
     );
   } else if (['status', 'logs', 'start', 'stop', 'restart'].includes(command)) {
     await step('Managing the service', () =>
@@ -105,7 +124,7 @@ try {
       parseAccessFile(text, { allowEmpty: true });
     }
     const temporary = `/tmp/fa-model-catalog-${randomUUID()}`;
-    const target = isCatalog ? '/var/opt/node/fa-model-catalog/catalog.yaml' : '/etc/fa-model-catalog/access.yaml';
+    const target = isCatalog ? `${app}/catalog.yaml` : runtime.accessFile;
     try {
       await uploadText(text, temporary);
       await ssh(
@@ -119,10 +138,10 @@ try {
     if (command === 'deploy') {
       await step('Checking ports and the environment', () =>
         ssh(`if ! systemctl cat ${service} >/dev/null 2>&1; then
-test -z "$(ss -H -ltn sport = :9062)"
-test -z "$(ss -H -ltn sport = :19062)"
+test -z "$(ss -H -ltn sport = :${publicPort})"
+test -z "$(ss -H -ltn sport = :${runtime.port})"
 fi
-test -f /etc/nginx/snippets/ssl-wildcard-finam-ru.conf
+test -f ${tlsSnippet}
 command -v node
 command -v git
 `),
@@ -135,8 +154,8 @@ if test ! -d ${app}/.git; then
   git clone ${config.repository} ${app}
 fi
 test "$(git -C ${app} remote get-url origin)" = '${config.repository}'
-git -C ${app} fetch origin master
-git -C ${app} reset --hard origin/master
+git -C ${app} fetch origin ${branch}
+git -C ${app} reset --hard origin/${branch}
 cd ${app}
 npm ci --omit=dev --ignore-scripts --no-audit --no-fund
 `),
@@ -189,14 +208,14 @@ WantedBy=multi-user.target
 UNIT
 cat > /etc/nginx/conf.d/${service}.conf <<'NGINX'
 server {
-    listen 9062 ssl;
+    listen ${publicPort} ssl;
     server_name ${config.publicHost};
-    include snippets/ssl-wildcard-finam-ru.conf;
+    include ${tlsSnippet};
     ssl_protocols TLSv1.2 TLSv1.3;
     client_max_body_size 256k;
     client_body_timeout 10s;
     location / {
-        proxy_pass http://127.0.0.1:19062;
+        proxy_pass http://${runtime.host}:${runtime.port};
         proxy_set_header Host $host;
         proxy_set_header Authorization $http_authorization;
         proxy_connect_timeout 3s;
@@ -216,7 +235,7 @@ systemctl enable ${service}
     await step('Starting the service and checking readiness', () =>
       ssh(`systemctl restart ${service}
 for attempt in 1 2 3 4 5 6 7 8 9 10; do
-  if curl --fail --silent http://127.0.0.1:19062/health; then break; fi
+  if curl --fail --silent ${healthUrl}; then break; fi
   sleep 1
 done
 ${command === 'deploy' ? 'systemctl reload nginx' : ''}

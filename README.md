@@ -17,7 +17,7 @@ import { createCatalogClient } from 'fa-model-catalog/client';
 import { calculatePrice } from 'fa-model-catalog/pricing';
 
 const client = createCatalogClient({
-  baseUrl: 'https://eei.finam.ru:9062',
+  baseUrl: process.env.MODEL_CATALOG_URL,
   token: process.env.MODEL_CATALOG_TOKEN,
   models: ['gpt-6-sol'],
 });
@@ -45,7 +45,7 @@ Pass the key through private application settings; never include it in source fi
 - [Startup and operations](docs/operations.md).
 - [Development setup and project settings](docs/development.md).
 
-The initial catalog combines records from five projects; information not confirmed by the provider remains available
+The example catalog illustrates the data format; information not confirmed by the provider remains available
 with an explanation of its limitations.
 Publishing the package does not confirm that every rate matches the provider's current price.
 

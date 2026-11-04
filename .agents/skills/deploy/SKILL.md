@@ -35,7 +35,10 @@ The active catalog must be catalog.yaml in the server checkout and excluded from
 catalog.example.yaml in the project root is its example. Service settings reside in /etc/fa-model-catalog.
 Code updates must not overwrite these files. Initial deployment must install the catalog and access settings;
 subsequent deployments must preserve them. Replace them only with the dedicated commands listed above.
-The public port must be 9062; the internal port must be 19062 on 127.0.0.1. nginx must use the installed certificate
+Read installation paths, service name, ports, branch, and TLS snippet path from the deployment settings.
+The deployment section defines appDirectory, serviceName, publicPort, tlsSnippet, and branch.
+Keep the catalog in the configured appDirectory; use server.host and server.port for the internal listener.
+nginx must use the configured installed certificate
 and proxy requests to the application. Do not copy the certificate's private key to the local computer.
 
 Before deployment, npm run quality and installation of the npm archive in a separate verification project must pass.

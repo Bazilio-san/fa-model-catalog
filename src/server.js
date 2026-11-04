@@ -82,7 +82,7 @@ export function createCatalogServer({ catalogFile, accessFile, reloadIntervalMs 
     server,
     store,
     access,
-    async listen({ port = 9062, host = '127.0.0.1' } = {}) {
+    async listen({ port = 3000, host = '127.0.0.1' } = {}) {
       if (closed) {
         throw new Error('The server has been stopped.');
       }

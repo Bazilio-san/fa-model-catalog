@@ -1,10 +1,10 @@
 # Startup and operations
 
-The service is deployed on PROD-2 and is available over HTTPS at https://eei.finam.ru:9062.
-The application accepts requests only on a local address; the installed nginx provides HTTPS.
+The service endpoint, host, ports, and certificate settings are defined by each deployment.
+The deployment setup uses a loopback application listener and nginx for HTTPS.
 The service requires neither databases nor calls to model providers.
 
-For deployment, obtain the [repository](https://github.com/Bazilio-san/fa-model-catalog) and use its project skill.
+For deployment from a source checkout, use the project deployment skill with your own repository and server settings.
 Connection and application settings follow the [configuration example](../.agents/skills/deploy/config/config.example.yaml).
 The working catalog is `catalog.yaml` in the server project root and is excluded from Git.
 The example is `catalog.example.yaml` in the project root. Code updates preserve the working catalog.

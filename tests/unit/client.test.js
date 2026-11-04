@@ -14,7 +14,7 @@ function setup(overrides = {}) {
   let mode = 'ok';
   const snapshot = parseCatalog(catalog());
   const client = createCatalogClient({
-    baseUrl: 'http://localhost:9062',
+    baseUrl: 'http://localhost:3000',
     token: 'test',
     models: ['demo'],
     random: () => 0.5,

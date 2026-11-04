@@ -14,7 +14,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.5
@@ -54,7 +54,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -86,7 +86,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -118,7 +118,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -150,7 +150,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.04
@@ -182,7 +182,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2
@@ -214,7 +214,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -246,7 +246,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -264,8 +264,8 @@ models:
     outB: 0
     outF: 0
     outFast: 0
-  finam@developer: gpt-5.6-luna
-  finam@developer_fast: gpt-5.6-luna
+  example@developer: gpt-5.6-luna
+  example@developer_fast: gpt-5.6-luna
   glm5.3-flash:
     billing:
       kind: tokens
@@ -287,7 +287,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.15
@@ -320,7 +320,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2
@@ -353,7 +353,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.4
@@ -386,7 +386,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.1
@@ -419,7 +419,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2.5
@@ -452,7 +452,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2.5
@@ -485,7 +485,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.15
@@ -518,7 +518,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -550,7 +550,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -582,7 +582,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -614,7 +614,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.25
@@ -647,7 +647,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.6
@@ -679,7 +679,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 5
@@ -711,7 +711,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -743,7 +743,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2.5
@@ -776,7 +776,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2.5
@@ -809,7 +809,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.25
@@ -852,7 +852,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.25
@@ -888,7 +888,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.05
@@ -927,10 +927,11 @@ models:
         - xhigh
         - max
     evidence:
-      reason: 'Cache read rates differ: 0.125 and 1.25. The value 0.125 from fa-harness, ktalk-sufler, and mem-bot is
-        preserved; both original values were recorded in the initial audit, without provider confirmation.'
+      reason:
+        'Cache read rates differ: 0.125 and 1.25. The value 0.125 from the imported catalogs is preserved; both original
+        values were recorded in the initial audit, without provider confirmation.'
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.25
@@ -963,7 +964,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.25
@@ -999,7 +1000,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.75
@@ -1035,7 +1036,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.75
@@ -1075,7 +1076,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.75
@@ -1111,10 +1112,10 @@ models:
         - xhigh
         - max
     evidence:
-      reason: 'Source Flex cache read rates differ: 0.13 and 0.125. The exact value 0.125 from uc-bot-sync and EEI was
+      reason: 'Source Flex cache read rates differ: 0.13 and 0.125. The exact value 0.125 from the imported catalogs was
         selected; both values were recorded in the initial audit. Current provider pricing is unverified.'
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2.5
@@ -1158,7 +1159,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.75
@@ -1201,7 +1202,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.2
@@ -1244,7 +1245,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 5
@@ -1287,7 +1288,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.2
@@ -1330,7 +1331,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 5
@@ -1373,7 +1374,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2
@@ -1416,7 +1417,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 10
@@ -1459,7 +1460,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.1
@@ -1502,7 +1503,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2
@@ -1543,7 +1544,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2
@@ -1580,7 +1581,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1
@@ -1616,7 +1617,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2.5
@@ -1649,7 +1650,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2.5
@@ -1682,7 +1683,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.6
@@ -1715,7 +1716,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     high:
@@ -1746,7 +1747,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 4
@@ -1779,7 +1780,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 4
@@ -1812,7 +1813,7 @@ models:
         Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
         be applied to audio units.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.6
@@ -1845,7 +1846,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.1
@@ -1881,7 +1882,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 2
@@ -1926,7 +1927,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - uc-bot-sync:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.13
@@ -1955,7 +1956,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -1988,7 +1989,7 @@ models:
         'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
         values are preserved for conditional calculations.'
       sources:
-        - mem-bot:src/services/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0
@@ -2034,7 +2035,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.13
@@ -2077,7 +2078,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.02
@@ -2116,7 +2117,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 15
@@ -2155,7 +2156,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 30
@@ -2194,7 +2195,7 @@ models:
         Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
         been independently verified.
       sources:
-        - fa-harness:src/services/llm/model-list.js
+        - imported-catalog
         - https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 0.006

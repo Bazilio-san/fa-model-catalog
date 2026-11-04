@@ -1,7 +1,7 @@
 import { createCatalogClient } from 'fa-model-catalog/client';
 import { calculatePrice, tariffSnapshot } from 'fa-model-catalog/pricing';
 import { createCatalogServer } from 'fa-model-catalog/server';
-const client = createCatalogClient({ baseUrl: 'http://localhost:9062', token: 'test' });
+const client = createCatalogClient({ baseUrl: 'http://localhost:3000', token: 'test' });
 async function example() {
   await client.start();
   const [record] = await client.get(['demo']);

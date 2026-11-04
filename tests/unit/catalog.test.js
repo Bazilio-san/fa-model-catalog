@@ -10,15 +10,15 @@ test('Exact names, explicit references, and provider prefixes', () => {
     catalog({
       demo: model(),
       'openai/demo': 'demo',
-      'finam@developer': 'demo',
-      'finam@demo': model({ inp: 3 }),
+      'example@developer': 'demo',
+      'example@demo': model({ inp: 3 }),
       'demo-2026-03-05': 'demo',
     }),
   );
   const records = resolveModels(data, [
     'demo',
-    'finam@demo',
-    'finam@developer',
+    'example@demo',
+    'example@developer',
     'other@demo',
     'openai/demo',
     'unknown/demo',
@@ -76,5 +76,5 @@ test('An invalid update preserves the snapshot and a correction restores state',
 test('The catalog example contains all original names and dated references', async () => {
   const data = parseCatalog(await readFile('catalog.example.yaml', 'utf8'));
   assert(Object.keys(data.models).length >= 77);
-  assert.equal(resolveModels(data, ['finam@developer'])[0].canonicalName, 'gpt-5.6-luna');
+  assert.equal(resolveModels(data, ['example@developer'])[0].canonicalName, 'gpt-5.6-luna');
 });

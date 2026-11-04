@@ -10,6 +10,7 @@ Read .agents/skills/deploy/SKILL.md before deployment.
 Do not publish to npm without a publishing request; never include keys in Git, archives, or logs.
 Show every calculation component; do not replace unknown values with zero, and explain stale values.
 Write documentation in English, use relative links, and keep Markdown lines within 120 characters.
+Keep deployment-specific values in private settings; use placeholders in documentation and public examples.
 
 Do not read editor directories, temporary data, or archives listed in `.rgignore` without an explicit user request.
 When cleaning up, delete only temporary files created for the current task and preserve other people's data.
