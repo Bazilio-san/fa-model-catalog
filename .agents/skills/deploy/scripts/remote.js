@@ -257,7 +257,7 @@ async function selectRevision() {
   await run('git', ['diff', '--cached', '--quiet']);
   const untracked = await run(
     'git',
-    ['ls-files', '--others', '--exclude-standard', 'src', 'update.cjs', '.agents/skills/deploy/scripts'],
+    ['ls-files', '--others', '--exclude-standard', 'src', 'update.js', '.agents/skills/deploy/scripts'],
     null,
     true,
   );
@@ -281,12 +281,12 @@ git -C ${app} merge-base --is-ancestor ${revision} origin/${branch}
 ${
   check
     ? ''
-    : `git -C ${app} show ${revision}:update.cjs > ${app}/update.cjs.next
-chmod 755 ${app}/update.cjs.next
-mv ${app}/update.cjs.next ${app}/update.cjs`
+    : `git -C ${app} show ${revision}:update.js > ${app}/update.js.next
+chmod 755 ${app}/update.js.next
+mv ${app}/update.js.next ${app}/update.js`
 }
 cd ${app}
-flock -n /run/lock/${service}-update.lock node update.cjs ${force ? '-f' : ''} ${check ? '--check' : ''} --branch ${branch} --service ${service} --server-config /etc/${service}/server.yaml --health-url ${healthUrl} --revision ${revision} --repository '${config.repository}'
+flock -n /run/lock/${service}-update.lock node update.js ${force ? '-f' : ''} ${check ? '--check' : ''} --branch ${branch} --service ${service} --server-config /etc/${service}/server.yaml --health-url ${healthUrl} --revision ${revision} --repository '${config.repository}'
 `);
   console.log(`Selected Git revision: ${revision}`);
 }
@@ -319,7 +319,7 @@ try {
   } else if (command === 'check') {
     await synchronize(false, true);
   } else if (['update', 'restart', 'start'].includes(command)) {
-    await step('Synchronizing from Git through update.cjs', () => synchronize(command !== 'update'));
+    await step('Synchronizing from Git through update.js', () => synchronize(command !== 'update'));
     await verify();
   } else if (command === 'push-config') {
     await upload(stringify(runtime), `/etc/${service}/server.yaml`);

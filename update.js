@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-// Adapted from fa-harness/update.cjs for a JavaScript service without builds or databases.
-const { spawn } = require('node:child_process');
-const { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } = require('node:fs');
-const { join, dirname } = require('node:path');
+// Adapted from the fa-harness updater for a JavaScript service without builds or databases.
+import { spawn } from 'node:child_process';
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { join, dirname, resolve as resolvePath } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-process.chdir(__dirname);
+const projectRoot = dirname(fileURLToPath(import.meta.url));
 
-function parseArgs(values) {
+export function parseArgs(values) {
   const options = { branch: 'master', services: ['fa-model-catalog'], check: false, force: false, help: false };
   let explicitService = false;
   const names = {
@@ -47,7 +48,7 @@ function parseArgs(values) {
   return options;
 }
 
-function validateOptions(options) {
+export function validateOptions(options) {
   if (!/^[a-zA-Z0-9_][a-zA-Z0-9_/-]*$/.test(options.branch) || options.branch.includes('..')) {
     throw new Error('Invalid branch name.');
   }
@@ -66,7 +67,7 @@ function validateOptions(options) {
   }
 }
 
-function classifyChanges(files) {
+export function classifyChanges(files) {
   const normalized = [...new Set(files.map((file) => file.replaceAll('\\', '/')).filter(Boolean))];
   return {
     dependencyChanges: normalized.some((file) => ['package.json', 'package-lock.json'].includes(file)),
@@ -75,7 +76,7 @@ function classifyChanges(files) {
   };
 }
 
-function mergeChanges(current, pending) {
+export function mergeChanges(current, pending) {
   return {
     dependencyChanges: current.dependencyChanges || Boolean(pending?.dependencyChanges),
     runtimeChanges: current.runtimeChanges || Boolean(pending?.runtimeChanges),
@@ -150,10 +151,11 @@ async function waitForHealth(url) {
 }
 
 async function main() {
+  process.chdir(projectRoot);
   const options = parseArgs(process.argv.slice(2));
   if (options.help) {
     console.log(`Update fa-model-catalog from Git on a Linux systemd server.
-Usage: ./update.cjs [--check] [-f|--force] --server-config <path> --health-url <loopback-url>
+Usage: ./update.js [--check] [-f|--force] --server-config <path> --health-url <loopback-url>
                    [--branch master] [--service fa-model-catalog] [--revision <commit>]
                    [--repository <url>]
 Tracked server files are reset to the selected Git commit. Ignored settings and untracked data are preserved.
@@ -165,7 +167,7 @@ Use the deployment wrapper to supply these arguments from private settings.`);
     throw new Error('This updater requires Linux and systemd.');
   }
   validateOptions(options);
-  const pendingFile = join(__dirname, '.runtime/update-pending.json');
+  const pendingFile = join(projectRoot, '.runtime/update-pending.json');
   let stage = 'Fetching Git revision';
   let done = 0;
   const started = Date.now();
@@ -173,7 +175,7 @@ Use the deployment wrapper to supply these arguments from private settings.`);
     console.log(`${stage}: completed ${done}/4; elapsed ${((Date.now() - started) / 1000).toFixed(1)}s.`);
   const timer = setInterval(progress, 30000);
   try {
-    if ((await output('git', ['rev-parse', '--show-toplevel'])) !== __dirname) {
+    if ((await output('git', ['rev-parse', '--show-toplevel'])) !== projectRoot) {
       throw new Error('Run the updater from its own Git checkout.');
     }
     if (options.repository && (await output('git', ['remote', 'get-url', 'origin'])) !== options.repository) {
@@ -220,7 +222,7 @@ Use the deployment wrapper to supply these arguments from private settings.`);
     await run('git', ['reset', '--hard', after]);
     done++;
     stage = 'Installing dependencies and validating data';
-    if (changes.dependencyChanges || !existsSync(join(__dirname, 'node_modules'))) {
+    if (changes.dependencyChanges || !existsSync(join(projectRoot, 'node_modules'))) {
       await run('npm', ['ci', '--omit=dev', '--ignore-scripts', '--no-audit', '--no-fund']);
     }
     const config = await validateRuntime(options.serverConfig);
@@ -251,10 +253,9 @@ Use the deployment wrapper to supply these arguments from private settings.`);
   }
 }
 
-if (require.main === module) {
+if (process.argv[1] && resolvePath(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main().catch((error) => {
     console.error(`Update failed: ${error.message}`);
     process.exitCode = 1;
   });
 }
-module.exports = { updateInternals: { classifyChanges, mergeChanges, parseArgs, validateOptions } };

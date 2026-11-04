@@ -44,7 +44,7 @@ The complete command list is in the repository's deployment skill, which is not 
 
 Server code is installed only from Git. The wrapper selects the clean local Git commit and requires it to exist
 in the configured remote branch. Commit and push reviewed code after local quality checks before deployment.
-The wrapper refreshes the root `update.cjs` from that commit, then uses it for updates and forced restarts.
+The wrapper refreshes the root `update.js` from that commit, then uses it for updates and forced restarts.
 The updater resets tracked files to the selected commit, preserves ignored settings and untracked data,
 installs production dependencies when needed, and checks settings, catalog, access, systemd, and readiness.
 It does not compile code or run database migrations. Failed updates leave a pending marker for the next retry.

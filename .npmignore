@@ -51,4 +51,4 @@ tmp/
 package-lock.json
 
 # Server updater is deployed from Git only.
-update.cjs
+update.js

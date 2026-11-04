@@ -1,8 +1,6 @@
 import assert from 'node:assert/strict';
-import { createRequire } from 'node:module';
 import test from 'node:test';
-const require = createRequire(import.meta.url);
-const { classifyChanges, mergeChanges, parseArgs, validateOptions } = require('../../update.cjs').updateInternals;
+import { classifyChanges, mergeChanges, parseArgs, validateOptions } from '../../update.js';
 
 test('Update arguments preserve forced and inspection modes and reject unsafe values', () => {
   const options = parseArgs([

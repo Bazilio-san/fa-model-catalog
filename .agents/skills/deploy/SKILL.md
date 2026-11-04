@@ -5,7 +5,7 @@ description: Deploy and maintain fa-model-catalog locally and on Linux as a syst
 
 # Model catalog deployment
 
-Before deployment or maintenance, read package.json, config/config.example.yaml, scripts/remote.js, and root update.cjs.
+Before deployment or maintenance, read package.json, config/config.example.yaml, scripts/remote.js, and root update.js.
 Resolve connection and deployment values from this skill's config/config.local.yaml; servers.local.md defines aliases.
 Never print private files or keys. Never include them in Git, archives, npm packages, or command arguments.
 Create keys with fa-web-access. All consumers share access.clients[0].keys[0].token from the private settings.
@@ -34,7 +34,7 @@ Run `node .agents/skills/deploy/scripts/remote.js <command>` from the checkout:
 | inspect         | Check target identity, tools, existing nginx site, and loopback port.                          |
 | deploy          | Clone Git code, provision persistent data and systemd, start, configure nginx, and verify.     |
 | check           | Fetch Git state and report whether the server needs synchronization; do not restart.           |
-| update          | Update the selected Git commit through root update.cjs, then verify the public endpoint.       |
+| update          | Update the selected Git commit through root update.js, then verify the public endpoint.        |
 | start / restart | Use the same updater with a forced restart, even when the commit is unchanged.                 |
 | stop            | Stop only this project's service.                                                              |
 | status / logs   | Read service state, readiness, installed commit, or recent logs.                               |
@@ -49,15 +49,15 @@ Deploy code only from Git. Never upload a working tree or npm archive as server 
 Run npm run quality and install the npm archive in a separate verification project before initial deployment.
 Commit and push reviewed project changes; do not include unrelated user changes or private files.
 The wrapper requires clean tracked local files and a local commit present in the configured origin branch.
-It fetches that commit on the server and refreshes update.cjs from Git before invoking it under an exclusive lock.
-Keep update.cjs executable in Git with mode 100755.
+It fetches that commit on the server and refreshes update.js from Git before invoking it under an exclusive lock.
+Keep update.js executable in Git with mode 100755.
 
 The updater synchronizes tracked server files with git reset --hard to the selected commit.
 It preserves ignored settings, the active catalog, dependencies, and untracked data; it does not run git clean.
 Only changed package manifests or missing dependencies require npm ci --omit=dev --ignore-scripts.
 There is no build step, compiler, or database. Validate runtime files before restarting only this project's service.
 A failed update leaves .runtime/update-pending.json so the next run repeats necessary steps.
-Code updates use update.cjs; keep the wrapper focused on connection, provisioning, configuration, and verification.
+Code updates use update.js; keep the wrapper focused on connection, provisioning, configuration, and verification.
 
 ## Persistent data and migration
 
