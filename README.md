@@ -7,7 +7,7 @@ Catalog changes do not require applications to update the package.
 Node.js is required; the version and dependencies are specified in the [package manifest](package.json).
 
 ```bash
-npm install --save-exact fa-model-catalog@0.1.0
+npm install --save-exact fa-model-catalog
 ```
 
 The client sends `POST /v1/models/resolve` to the configured service.

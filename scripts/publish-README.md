@@ -11,9 +11,10 @@ node scripts/publish.js
 node scripts/publish.js --add-all
 ```
 
-Use `--no-bump` (or `-n`) to publish the current version, including the first release at `0.1.0`.
+Use `--no-bump` (or `-n`) to publish the current version, including the first release.
 Otherwise, `npm version patch --no-git-tag-version --ignore-scripts` increments the patch version in
 `package.json` and `package-lock.json` without creating a Git tag or running version scripts.
+Only the publisher increments the version; ordinary Git commits leave it unchanged.
 
 By default, `git add -u` stages modifications and deletions of tracked files.
 Use `--add-all` (or `-a`) to also stage untracked files allowed by Git ignore rules.
