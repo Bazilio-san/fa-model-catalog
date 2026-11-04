@@ -5,6 +5,7 @@ config/*.local.yaml
 coverage/
 
 # Local settings and private data.
+server.yaml
 .env
 .env.*
 !.env.example
@@ -49,5 +50,4 @@ Thumbs.db
 
 /catalog.yaml
 
-/catalog.server.yaml
 /.npmrc

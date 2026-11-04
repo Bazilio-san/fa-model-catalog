@@ -10,7 +10,6 @@
 npmrc.txt
 servers.local.md
 catalog.yaml
-catalog.server.yaml
 .agents/skills/deploy/config/*
 !.agents/skills/deploy/config/*.example.yaml
 
