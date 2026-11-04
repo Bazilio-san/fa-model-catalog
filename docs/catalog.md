@@ -3,7 +3,7 @@
 The catalog combines model prices, billing units, and capabilities.
 An invalid revision never replaces the active one, so applications continue receiving the last validated snapshot.
 
-The format is defined by the [schema and validator](../src/schemas/catalog.js); initial entries are available in the
+The format is defined by the [schema and validator](../src/catalog-schemas.js); initial entries are available in the
 [example catalog](../catalog.example.yaml).
 The server settings specify the working file, which must remain separate from source files replaced during updates.
 

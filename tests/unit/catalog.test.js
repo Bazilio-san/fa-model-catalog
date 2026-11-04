@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
-import { parseCatalog } from '../../src/schemas/catalog.js';
+import { parseCatalog } from '../../src/catalog-schemas.js';
 import { resolveModels, createCatalogStore } from '../../src/catalog.js';
 import { catalog, model, files } from '../helpers.js';
 

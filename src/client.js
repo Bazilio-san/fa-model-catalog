@@ -1,4 +1,4 @@
-import { validateModel } from './schemas/catalog.js';
+import { validateModel } from './catalog-schemas.js';
 import { nextRefreshTime } from './schedule.js';
 
 export function createCatalogClient({

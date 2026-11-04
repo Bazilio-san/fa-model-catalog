@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import { parseCatalog } from './schemas/catalog.js';
+import { parseCatalog } from './catalog-schemas.js';
 
 export function resolveModels(snapshot, names) {
   return names.map((requestedName) => {

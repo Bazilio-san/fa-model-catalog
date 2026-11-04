@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
-import { parseCatalog } from '../schemas/catalog.js';
+import { parseCatalog } from '../catalog-schemas.js';
 try {
   const { values } = parseArgs({ options: { file: { type: 'string', default: 'catalog.example.yaml' } } });
   const data = parseCatalog(await readFile(values.file, 'utf8'));

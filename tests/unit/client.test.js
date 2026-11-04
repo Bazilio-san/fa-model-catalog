@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createCatalogClient } from '../../src/client.js';
-import { parseCatalog } from '../../src/schemas/catalog.js';
+import { parseCatalog } from '../../src/catalog-schemas.js';
 import { resolveModels } from '../../src/catalog.js';
 import { nextRefreshTime } from '../../src/schedule.js';
 import { catalog } from '../helpers.js';

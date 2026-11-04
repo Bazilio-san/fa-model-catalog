@@ -12,8 +12,7 @@
   },
   "files": [
     "src/*.js",
-    "src/*.d.ts",
-    "src/schemas",
+    "src/types",
     "src/cli",
     "docs",
     "catalog.example.yaml",
@@ -24,15 +23,15 @@
   "type": "module",
   "exports": {
     "./client": {
-      "types": "./src/client.d.ts",
+      "types": "./src/types/client.d.ts",
       "import": "./src/client.js"
     },
     "./pricing": {
-      "types": "./src/pricing.d.ts",
+      "types": "./src/types/pricing.d.ts",
       "import": "./src/pricing.js"
     },
     "./server": {
-      "types": "./src/server.d.ts",
+      "types": "./src/types/server.d.ts",
       "import": "./src/server.js"
     }
   },
@@ -42,13 +41,12 @@
     "catalog:check": "node src/cli/check.js",
     "test:code": "node --test \"tests/unit/*.test.js\"",
     "test:integration": "node --test \"tests/integration/*.test.js\"",
-    "lint": "oxlint src tests scripts .agents/skills",
-    "lint:fix": "oxlint --fix src tests scripts .agents/skills && npm run format",
+    "lint": "oxlint src tests scripts .agents/skills update.cjs",
+    "lint:fix": "oxlint --fix src tests scripts .agents/skills update.cjs && npm run format",
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "docs:check": "node scripts/checks-docs.js",
-    "type:check": "tsc --noEmit -p tsconfig.json",
-    "quality": "npm run test:code && npm run test:integration && npm run lint && npm run format:check && npm run type:check && npm run docs:check",
+    "quality": "npm run test:code && npm run test:integration && npm run lint && npm run format:check && npm run docs:check",
     "prepublishOnly": "npm run quality"
   },
   "dependencies": {
@@ -57,10 +55,8 @@
     "yaml": "2.9.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
     "oxfmt": "0.61.0",
-    "oxlint": "1.76.0",
-    "typescript": "^5.9.3"
+    "oxlint": "1.76.0"
   },
   "engines": {
     "node": ">=22.12"

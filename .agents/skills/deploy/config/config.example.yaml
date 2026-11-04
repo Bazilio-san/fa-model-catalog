@@ -21,5 +21,7 @@ deployment:
   appDirectory: /opt/model-catalog
   serviceName: fa-model-catalog
   publicPort: 443
-  tlsSnippet: /etc/nginx/snippets/catalog-tls.conf
   branch: master
+  nginxSite: /etc/nginx/sites-enabled/catalog.example.com.conf
+  nginxSnippet: /etc/nginx/snippets/fa-model-catalog.conf
+  catalogSource: catalog.example.yaml

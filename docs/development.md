@@ -14,7 +14,6 @@ Service configuration and startup are described in the [operations guide](operat
 | `npm run lint`                    | Source analysis using `.oxlintrc.json`.           |
 | `npm run lint:fix`                | Automatic fixes and formatting.                   |
 | `npm run format:check`            | Formatting checks without changing files.         |
-| `npm run type:check`              | Type declaration checks.                          |
 | `npm run docs:check`              | Relative documentation link checks.               |
 | `npm run quality`                 | All checks above without automatic fixes.         |
 
@@ -24,7 +23,9 @@ Formatting checks include Markdown, JSON, YAML, and type declarations.
 ## Project settings
 
 Development rules are in the root `AGENTS.md`. `CLAUDE.md` imports only `AGENTS.md`.
-Code analysis uses `.oxlintrc.json`, and type declarations are checked by `type:check`.
+Code analysis uses `.oxlintrc.json`.
+The service runs JavaScript directly, without a build step or a TypeScript compiler.
+Public `.d.ts` declarations remain available for applications that use type checking.
 The service reads YAML settings and does not load `.env`.
 Use the deployment skill's `update` command to update an existing installation.
 Keep addresses, credentials, ports, certificate paths, and installation paths in private configuration.

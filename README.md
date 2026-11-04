@@ -10,6 +10,10 @@ Node.js is required; the version and dependencies are specified in the [package 
 npm install --save-exact fa-model-catalog@0.1.0
 ```
 
+The client sends `POST /v1/models/resolve` to the configured service.
+Set `MODEL_CATALOG_URL` to the HTTPS origin, such as `https://catalog.example.com`.
+The client adds `/v1/models/resolve` automatically. Direct HTTP callers use the full endpoint URL.
+
 Application connection example:
 
 ```js

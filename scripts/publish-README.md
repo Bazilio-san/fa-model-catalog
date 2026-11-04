@@ -22,7 +22,7 @@ Previously staged files are included too; review the index before running the sc
 The script performs these steps:
 
 1. Switch to the project root, validate the package name and version, and require the `master` branch.
-2. Run `npm run quality`: unit and integration tests, lint, formatting, types, and documentation checks.
+2. Run `npm run quality`: unit and integration tests, lint, formatting, and documentation checks.
 3. Update the version unless `--no-bump` is set.
 4. Show package contents using `npm pack --dry-run --ignore-scripts` before committing or pushing.
 5. Stage changes and create a commit named after the version if the index is not empty.

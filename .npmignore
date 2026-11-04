@@ -29,7 +29,6 @@ AGENTS.md
 .editorconfig
 .oxlintrc.json
 .oxfmtrc.json
-tsconfig*.json
 
 # Generated files, logs, and temporary data.
 node_modules/
@@ -50,3 +49,6 @@ tmp/
 *.tgz
 *.tsbuildinfo
 package-lock.json
+
+# Server updater is deployed from Git only.
+update.cjs
