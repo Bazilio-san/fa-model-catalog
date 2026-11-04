@@ -8,7 +8,7 @@
  *   .agents/skills/          canonical skill storage: real files (read directly by Codex)
  *   .claude/skills -> ../.agents/skills   (link used by Claude Code to discover skills)
  *
- * The project root is resolved from this script's location (scripts/maintenance/../..), independently of
+ * The project root is resolved from this script's location (scripts/..), independently of
  * the working directory. Use --repo <path> to set the root explicitly.
  *
  * Only compatible entities are linked. The following are not linked:
@@ -17,7 +17,7 @@
  *   - .claude/settings  - Codex has its own .codex/config.toml and hooks.json;
  *   - .mcp.json         - Codex MCP servers are defined in .codex/config.toml.
  *
- * Usage: node scripts/maintenance/claude-2-agents-symlink.js [setup|remove|status] [--dry-run] [--force]
+ * Usage: node scripts/claude-2-agents-symlink.js [setup|remove|status] [--dry-run] [--force]
  *                [--repo <path>]
  */
 
@@ -26,7 +26,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const DEFAULT_REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const DEFAULT_REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const LINK_MAPPINGS = [
   {

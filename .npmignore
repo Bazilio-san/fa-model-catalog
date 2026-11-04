@@ -1,0 +1,52 @@
+# package.json files selects runtime source, documentation, and public examples.
+# Private settings and local catalogs.
+.env
+.env.*
+*.local.*
+*.private.*
+**/*.local.*
+**/*.private.*
+.npmrc
+npmrc.txt
+servers.local.md
+catalog.yaml
+catalog.server.yaml
+.agents/skills/deploy/config/*
+!.agents/skills/deploy/config/*.example.yaml
+
+# Development tools and project instructions.
+.git/
+.claude/
+.idea/
+.junie/
+.run/
+.vscode/
+scripts/
+tests/
+AGENTS.md
+.gitignore
+.rgignore
+.editorconfig
+.oxlintrc.json
+.oxfmtrc.json
+tsconfig*.json
+
+# Generated files, logs, and temporary data.
+node_modules/
+coverage/
+dist/
+build/
+out/
+.runtime/
+_archive/
+_input/
+_logs/
+_misc_/
+_temp/
+_tmp/
+temp/
+tmp/
+*.log
+*.tgz
+*.tsbuildinfo
+package-lock.json
