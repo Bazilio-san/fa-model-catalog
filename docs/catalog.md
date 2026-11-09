@@ -19,9 +19,11 @@ Prices and supported modes are described separately.
 Matching rates do not imply mode support, and an unknown rate differs from a confirmed zero.
 Billing units are explicit; minutes, characters, images, and video seconds cannot be treated as text usage.
 
-The server loads the catalog and access settings before opening its port.
+The server loads the catalog and access settings from config/local.yaml before opening its port.
 File changes apply as a fully validated snapshot; failures and recovery are logged.
 The content version is independent of property order, and each batch response uses a single version.
 
 Insufficient evidence is stored alongside the model description.
 It does not prevent access to the original values or a conditional calculation, but explains the result's limitations.
+The `evidence` object contains `status` (`confirmed` or `insufficient`) and a `sources` array, without a `reason` field.
+Calculations with `insufficient` evidence include a general notice and remain qualified even when all rates are known.

@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
-import { stringify } from 'yaml';
+import { stringify, parse } from 'yaml';
+import { readFile } from 'node:fs/promises';
 import { createCatalogServer } from '../../src/server.js';
 import { createCatalogClient } from '../../src/client.js';
 import { calculatePrice } from '../../src/pricing.js';
@@ -39,11 +40,14 @@ test('Access control, batch responses, limits, and key reloading', async (t) => 
   assert.deepEqual(await (await send({ models: [] })).json(), []);
   assert.equal((await send({ models: ['a'.repeat(270000)] })).status, 413);
   const next = 'b'.repeat(43);
-  await writeFile(f.accessFile, stringify({ clients: [{ id: 'test', keys: [{ id: 'two', token: next }] }] }));
+  const settings = parse(await readFile(f.configFile, 'utf8'));
+  settings.access = { clients: [{ id: 'test', keys: [{ id: 'two', token: next }] }] };
+  await writeFile(f.configFile, stringify(settings));
   await app.access.reload();
   assert.equal((await send({ models: [] })).status, 401);
   assert.equal((await send({ models: [] }, next)).status, 200);
-  await writeFile(f.accessFile, 'clients: []');
+  settings.access = { clients: [] };
+  await writeFile(f.configFile, stringify(settings));
   await app.access.reload();
   assert.equal((await send({ models: [] }, next)).status, 401);
 });

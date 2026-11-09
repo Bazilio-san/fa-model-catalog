@@ -10,9 +10,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -50,9 +47,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -82,9 +76,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -114,9 +105,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -146,9 +134,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -178,9 +163,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -210,9 +192,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -242,9 +221,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -283,9 +259,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -316,9 +289,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -349,9 +319,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -382,9 +349,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -415,9 +379,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -448,9 +409,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -481,9 +439,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -514,9 +469,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -546,9 +498,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -578,9 +527,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -610,9 +556,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -643,9 +586,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -675,9 +615,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -707,9 +644,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -739,9 +673,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -772,9 +703,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -805,9 +733,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -848,9 +773,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -884,9 +806,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -927,9 +846,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        'Cache read rates differ: 0.125 and 1.25. The value 0.125 from the imported catalogs is preserved; both original
-        values were recorded in the initial audit, without provider confirmation.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -960,9 +876,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -996,9 +909,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1032,9 +942,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1072,9 +979,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1112,8 +1016,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason: 'Source Flex cache read rates differ: 0.13 and 0.125. The exact value 0.125 from the imported catalogs was
-        selected; both values were recorded in the initial audit. Current provider pricing is unverified.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1155,9 +1057,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1198,9 +1097,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1241,9 +1137,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1284,9 +1177,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1327,9 +1217,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1370,9 +1257,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1413,9 +1297,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1456,9 +1337,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1499,9 +1377,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1540,9 +1415,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1577,9 +1449,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1613,9 +1482,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1646,9 +1512,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1679,9 +1542,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1712,9 +1572,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1743,9 +1600,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1776,9 +1630,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1809,9 +1660,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Original rates are preserved; individual audio components and capabilities are unverified. Text rates must not
-        be applied to audio units.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1842,9 +1690,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1878,9 +1723,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1923,9 +1765,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1952,9 +1791,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -1985,9 +1821,6 @@ models:
       promptCacheKey: true
       reasoningEfforts: []
     evidence:
-      reason:
-        'Original zero values do not establish that usage is free: the source projects have no complete tariff; original
-        values are preserved for conditional calculations.'
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -2031,9 +1864,6 @@ models:
       - 3072
     dimensionsAllowed: true
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -2074,9 +1904,6 @@ models:
       - 1536
     dimensionsAllowed: true
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -2113,9 +1940,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -2152,9 +1976,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing
@@ -2191,9 +2012,6 @@ models:
         - xhigh
         - max
     evidence:
-      reason:
-        Migrated from an existing project catalog; the completeness of current provider rates and capabilities has not
-        been independently verified.
       sources:
         - imported-catalog
         - https://developers.openai.com/api/docs/pricing

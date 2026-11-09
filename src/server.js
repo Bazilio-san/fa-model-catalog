@@ -1,13 +1,26 @@
 import { createServer } from 'node:http';
-import { createAccessControl, AccessError } from 'fa-web-access';
+import { AccessError } from 'fa-web-access';
+import { createConfigAccessControl } from './access.js';
 import { createCatalogStore, resolveModels } from './catalog.js';
 
-export function createCatalogServer({ catalogFile, accessFile, reloadIntervalMs = 5000, onEvent = () => {} }) {
-  if (!catalogFile || !accessFile || !Number.isFinite(reloadIntervalMs) || reloadIntervalMs < 10) {
+export function createCatalogServer({
+  catalogFile,
+  access: accessSettings,
+  configFile,
+  reloadIntervalMs = 5000,
+  onEvent = () => {},
+}) {
+  if (
+    !catalogFile ||
+    !accessSettings ||
+    !Number.isSafeInteger(reloadIntervalMs) ||
+    reloadIntervalMs < 10 ||
+    reloadIntervalMs > 2147483647
+  ) {
     throw new Error('Invalid server settings.');
   }
   const store = createCatalogStore({ file: catalogFile, reloadIntervalMs, onEvent });
-  const access = createAccessControl({ file: accessFile, reloadIntervalMs, onEvent });
+  const access = createConfigAccessControl({ access: accessSettings, configFile, reloadIntervalMs, onEvent });
   const send = (res, status, value, headers = {}) => {
     res.writeHead(status, {
       'Content-Type': 'application/json; charset=utf-8',

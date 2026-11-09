@@ -49,5 +49,6 @@ Thumbs.db
 !/_prompts/done/.gitkeep
 
 /catalog.yaml
+/config/local.yaml
 
 /.npmrc

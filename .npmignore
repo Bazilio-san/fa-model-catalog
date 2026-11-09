@@ -10,9 +10,12 @@
 npmrc.txt
 servers.local.md
 server.yaml
+config/local.yaml
 catalog.yaml
 .agents/skills/deploy/config/*
-!.agents/skills/deploy/config/*.example.yaml
+.agents/skills/deploy/configs/*
+!.agents/skills/deploy/configs/_example/
+!.agents/skills/deploy/configs/_example/**
 
 # Development tools and project instructions.
 .git/

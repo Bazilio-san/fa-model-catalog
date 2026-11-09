@@ -118,16 +118,10 @@ function systemctl(args, options = {}) {
 
 async function validateRuntime(file) {
   try {
-    const { parseDocument } = await import('yaml');
-    const { parseAccessFile } = await import('fa-web-access');
+    const { readSettings } = await import('./src/settings.js');
     const { parseCatalog } = await import('./src/catalog-schemas.js');
-    const doc = parseDocument(readFileSync(file, 'utf8'), { uniqueKeys: true });
-    if (doc.errors.length) {
-      throw new Error();
-    }
-    const config = doc.toJS({ maxAliasCount: 0 });
+    const { server: config } = await readSettings(file);
     parseCatalog(readFileSync(config.catalogFile, 'utf8'));
-    parseAccessFile(readFileSync(config.accessFile, 'utf8'));
     return config;
   } catch {
     throw new Error('Runtime configuration, catalog, or access settings are invalid.');

@@ -3,6 +3,7 @@ servers.local.md
 .agents/skills/deploy/config/*.local.yaml
 .agents/skills/deploy/config/config.local.yaml
 catalog.yaml
+config/local.yaml
 .idea/
 .junie/
 .run/

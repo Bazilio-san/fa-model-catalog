@@ -52,6 +52,20 @@ test('An invalid catalog is rejected in full', () => {
     assert.throws(() => parseCatalog(text));
   }
 });
+test('Evidence needs no reason field and still requires a valid status and sources', () => {
+  const evidence = { status: 'insufficient', sources: [] };
+  const parsed = parseCatalog(catalog({ demo: model({ evidence }) }));
+  assert.deepEqual(parsed.models.demo.evidence, evidence);
+  for (const invalid of [
+    { status: 'insufficient' },
+    { sources: [] },
+    { status: 'unknown', sources: [] },
+    { ...evidence, reason: 'Legacy explanation.' },
+  ]) {
+    assert.throws(() => parseCatalog(catalog({ demo: model({ evidence: invalid }) })));
+  }
+});
+
 test('A stable version does not depend on key order', () => {
   const a = parseCatalog(catalog({ a: model(), b: 'a' }));
   const b = parseCatalog(catalog({ b: 'a', a: model() }));

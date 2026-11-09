@@ -5,20 +5,8 @@ remote:
   publicHost: catalog.example.com
   repository: https://example.com/organization/model-catalog.git
   user: root
-access:
-  clients:
-    - id: shared
-      keys:
-        - id: primary
-          token: REPLACE_WITH_ACCESS_TOKEN
-server:
-  accessFile: /etc/fa-model-catalog/access.yaml
-  catalogFile: /opt/model-catalog/catalog.yaml
-  host: 127.0.0.1
-  port: 3000
-  reloadIntervalMs: 5000
 deployment:
-  appDirectory: /opt/model-catalog
+  appDirectory: /opt/services/model-catalog
   serviceName: fa-model-catalog
   publicPort: 443
   branch: master

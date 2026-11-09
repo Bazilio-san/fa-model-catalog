@@ -4,19 +4,17 @@ import { spawn } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
-import { parseArgs } from 'node:util';
-import { parseDocument, stringify } from 'yaml';
+import { stringify } from 'yaml';
+import { selectServer, loadSettings } from './settings.js';
 import { parseCatalog } from '../../../../src/catalog-schemas.js';
 import { parseAccessFile } from 'fa-web-access';
 
 const root = fileURLToPath(new URL('../../../../', import.meta.url));
 process.chdir(root);
-const { values, positionals } = parseArgs({
-  allowPositionals: true,
-  options: { config: { type: 'string', default: '.agents/skills/deploy/config/config.local.yaml' } },
-});
-const command = positionals[0] || 'status';
+const selection = selectServer(process.argv.slice(2));
+const { command } = selection;
 const commands = [
+  'show',
   'inspect',
   'deploy',
   'update',
@@ -27,24 +25,24 @@ const commands = [
   'stop',
   'restart',
   'push-catalog',
-  'push-access',
   'push-config',
   'verify',
 ];
-if (positionals.length > 1 || !commands.includes(command)) {
+if (!commands.includes(command)) {
   throw new Error(`Expected one command: ${commands.join(', ')}.`);
 }
-const document = parseDocument(await fs.readFile(resolve(values.config), 'utf8'), { uniqueKeys: true });
-if (document.errors.length) {
-  throw new Error('Invalid deployment settings document.');
-}
-const settings = document.toJS({ maxAliasCount: 0 });
+const settings = await loadSettings(selection);
 const config = settings.remote;
 const { deployment } = settings;
 const runtime = settings.server;
 const { appDirectory: app, serviceName: service, branch, nginxSite, nginxSnippet, publicPort } = deployment;
 const validPath = (value) =>
   typeof value === 'string' && /^\/[a-zA-Z0-9_./-]+$/.test(value) && !value.split('/').includes('..');
+for (const key of ['nginxSite', 'nginxSnippet', 'catalogSource']) {
+  if (!deployment[key]) {
+    throw new Error(`Missing deployment.${key} in the selected config.yaml.`);
+  }
+}
 if (
   !config ||
   !['host', 'publicHost', 'user'].every(
@@ -73,17 +71,37 @@ if (
   !Number.isInteger(runtime.port) ||
   runtime.port < 1 ||
   runtime.port > 65535 ||
-  runtime.accessFile !== `/etc/${service}/access.yaml` ||
   runtime.catalogFile !== `${app}/catalog.yaml` ||
   !Number.isFinite(runtime.reloadIntervalMs) ||
   runtime.reloadIntervalMs < 10 ||
-  Object.keys(runtime).some(
-    (key) => !['accessFile', 'catalogFile', 'host', 'port', 'reloadIntervalMs'].includes(key),
-  ) ||
+  Object.keys(runtime).some((key) => !['catalogFile', 'host', 'port', 'reloadIntervalMs'].includes(key)) ||
   typeof deployment.catalogSource !== 'string' ||
   !deployment.catalogSource
 ) {
   throw new Error('Invalid connection, deployment, or runtime settings.');
+}
+const healthUrl = `http://${runtime.host}:${runtime.port}/health`;
+const publicOrigin = `https://${config.publicHost}${publicPort === 443 ? '' : `:${publicPort}`}`;
+if (command === 'show') {
+  console.log(
+    JSON.stringify(
+      {
+        server: selection.name,
+        host: config.host,
+        port: config.port,
+        branch,
+        appDirectory: app,
+        serviceName: service,
+        healthUrl,
+        publicOrigin,
+        catalogSource: deployment.catalogSource,
+        rulesFile: selection.rulesFile,
+      },
+      null,
+      2,
+    ),
+  );
+  process.exit(0);
 }
 const accessText = stringify(settings.access);
 try {
@@ -91,10 +109,10 @@ try {
 } catch {
   throw new Error('Invalid private access settings.');
 }
+const runtimeText = stringify({ server: runtime, access: settings.access });
+const runtimeFile = `${app}/config/local.yaml`;
 const options = ['-o', 'BatchMode=yes', '-o', 'ConnectTimeout=15', '-i', config.keyPath, '-p', String(config.port)];
 const destination = `${config.user}@${config.host}`;
-const healthUrl = `http://${runtime.host}:${runtime.port}/health`;
-const publicOrigin = `https://${config.publicHost}${publicPort === 443 ? '' : `:${publicPort}`}`;
 const endpoint = `${publicOrigin}/v1/models/resolve`;
 let stage = command;
 let done = 0;
@@ -286,7 +304,7 @@ chmod 755 ${app}/update.js.next
 mv ${app}/update.js.next ${app}/update.js`
 }
 cd ${app}
-flock -n /run/lock/${service}-update.lock node update.js ${force ? '-f' : ''} ${check ? '--check' : ''} --branch ${branch} --service ${service} --server-config /etc/${service}/server.yaml --health-url ${healthUrl} --revision ${revision} --repository '${config.repository}'
+flock -n /run/lock/${service}-update.lock node update.js ${force ? '-f' : ''} ${check ? '--check' : ''} --branch ${branch} --service ${service} --server-config ${runtimeFile} --health-url ${healthUrl} --revision ${revision} --repository '${config.repository}'
 `);
   console.log(`Selected Git revision: ${revision}`);
 }
@@ -309,20 +327,17 @@ try {
     );
   } else if (command === 'stop') {
     await ssh(`systemctl stop ${service}\ntest "$(systemctl is-active ${service})" = inactive`);
-  } else if (command === 'push-catalog' || command === 'push-access') {
-    const isCatalog = command === 'push-catalog';
-    const text = isCatalog ? await fs.readFile(resolve(deployment.catalogSource), 'utf8') : accessText;
-    if (isCatalog) {
-      parseCatalog(text);
-    }
-    await upload(text, isCatalog ? runtime.catalogFile : runtime.accessFile);
+  } else if (command === 'push-catalog') {
+    const text = await fs.readFile(resolve(deployment.catalogSource), 'utf8');
+    parseCatalog(text);
+    await upload(text, runtime.catalogFile);
   } else if (command === 'check') {
     await synchronize(false, true);
   } else if (['update', 'restart', 'start'].includes(command)) {
     await step('Synchronizing from Git through update.js', () => synchronize(command !== 'update'));
     await verify();
   } else if (command === 'push-config') {
-    await upload(stringify(runtime), `/etc/${service}/server.yaml`);
+    await upload(runtimeText, runtimeFile);
     await configureNginx();
     await synchronize(true);
     await verify();
@@ -347,7 +362,7 @@ if test ! -d ${app}/.git; then
 fi
 test "$(git -C ${app} remote get-url origin)" = '${config.repository}'
 id ${service} >/dev/null 2>&1 || useradd --system --home /var/lib/${service} --shell /usr/sbin/nologin ${service}
-install -d -o ${service} -g ${service} -m 750 /etc/${service} /var/lib/${service}
+install -d -o ${service} -g ${service} -m 750 ${app}/config /var/lib/${service}
 install -d -m 755 /usr/local/lib/${service}
 install -m 755 "$(command -v node)" /usr/local/lib/${service}/node
 /usr/local/lib/${service}/node --input-type=module -e 'if(Number(process.versions.node.split(".")[0])<22)process.exit(1)'
@@ -358,11 +373,7 @@ install -m 755 "$(command -v node)" /usr/local/lib/${service}/node
       if (exists === 'no') {
         await upload(catalogText, runtime.catalogFile);
       }
-      const accessExists = await ssh(`test -f ${runtime.accessFile} && echo yes || echo no`, true);
-      if (accessExists === 'no') {
-        await upload(accessText, runtime.accessFile);
-      }
-      await upload(stringify(runtime), `/etc/${service}/server.yaml`);
+      await upload(runtimeText, runtimeFile);
     });
     await step('Installing the systemd unit', () =>
       ssh(`cat > /etc/systemd/system/${service}.service <<'UNIT'
@@ -374,7 +385,7 @@ Type=simple
 User=${service}
 Group=${service}
 WorkingDirectory=${app}
-ExecStart=/usr/local/lib/${service}/node ${app}/src/cli/server.js --config /etc/${service}/server.yaml
+ExecStart=/usr/local/lib/${service}/node ${app}/src/cli/server.js --config ${runtimeFile}
 Restart=on-failure
 RestartSec=3
 TimeoutStopSec=20
@@ -382,7 +393,7 @@ NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
 PrivateTmp=true
-ReadOnlyPaths=/etc/${service} /var/lib/${service}
+ReadOnlyPaths=${app}/config /var/lib/${service}
 [Install]
 WantedBy=multi-user.target
 UNIT

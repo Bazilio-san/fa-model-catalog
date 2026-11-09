@@ -6,7 +6,7 @@ test('Update arguments preserve forced and inspection modes and reject unsafe va
   const options = parseArgs([
     '-f',
     '--server-config',
-    '/etc/catalog/server.yaml',
+    '/opt/services/catalog/config/local.yaml',
     '--health-url',
     'http://127.0.0.1:3000/health',
   ]);

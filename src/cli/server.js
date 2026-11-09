@@ -1,35 +1,18 @@
 #!/usr/bin/env node
-import { readFile } from 'node:fs/promises';
-import { resolve, dirname } from 'node:path';
+import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
-import { parseDocument } from 'yaml';
+import { readSettings } from '../settings.js';
 import { createCatalogServer } from '../server.js';
 try {
   const { values } = parseArgs({
-    options: { config: { type: 'string', default: '.agents/skills/deploy/config/config.local.yaml' } },
+    options: { config: { type: 'string', default: 'config/local.yaml' } },
   });
   const file = resolve(values.config);
-  const doc = parseDocument(await readFile(file, 'utf8'), { uniqueKeys: true });
-  if (doc.errors.length) {
-    throw new Error();
-  }
-  const document = doc.toJS({ maxAliasCount: 0 });
-  const config = document.server ?? document;
-  const allowed = ['catalogFile', 'accessFile', 'host', 'port', 'reloadIntervalMs'];
-  if (
-    !config ||
-    Object.keys(config).some((k) => !allowed.includes(k)) ||
-    !Number.isInteger(config.port) ||
-    config.port < 1 ||
-    config.port > 65535 ||
-    typeof config.host !== 'string'
-  ) {
-    throw new Error();
-  }
+  const { server: config, access } = await readSettings(file);
   const app = createCatalogServer({
     ...config,
-    catalogFile: resolve(dirname(file), config.catalogFile),
-    accessFile: resolve(dirname(file), config.accessFile),
+    access,
+    configFile: file,
     onEvent: (e) => console.log(JSON.stringify(e)),
   });
   await app.listen(config);
@@ -44,6 +27,6 @@ try {
     });
   }
 } catch {
-  console.error('Could not start the service: check the settings, catalog, and access file.');
+  console.error('Could not start the service: check config/local.yaml and the catalog.');
   process.exitCode = 1;
 }

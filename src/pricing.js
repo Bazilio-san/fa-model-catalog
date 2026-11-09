@@ -65,7 +65,7 @@ export function calculatePrice(record, usage, { serviceTier = 'standard' } = {})
       issues.push(`Pricing is stale: ${snapshot.reason || 'The refresh has not been confirmed.'}`);
     }
     if (snapshot.evidence.status === 'insufficient') {
-      issues.push(snapshot.evidence.reason);
+      issues.push('Model prices and capabilities are insufficiently supported by evidence.');
     }
     if (usage.unit !== billing.unit) {
       issues.push('The usage unit does not match the billing unit.');

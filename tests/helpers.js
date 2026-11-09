@@ -18,7 +18,7 @@ export function model(overrides = {}) {
     billing: { kind: 'tokens', unit: 'tokens', per: 1000000 },
     modes: ['standard', 'flex', 'batch', 'fast'],
     capabilities: { promptCacheKey: true, explicitPromptCaching: true, reasoningEfforts: ['low', 'high'] },
-    evidence: { status: 'confirmed', reason: null, sources: [] },
+    evidence: { status: 'confirmed', sources: [] },
     ...overrides,
   };
 }
@@ -30,10 +30,12 @@ export async function files(t) {
   await mkdir(parent, { recursive: true });
   const root = await mkdtemp(`${parent}/run-`);
   const catalogFile = `${root}/catalog.yaml`;
-  const accessFile = `${root}/access.yaml`;
+  const configFile = `${root}/config/local.yaml`;
+  await mkdir(`${root}/config`);
   const token = 'a'.repeat(43);
   await writeFile(catalogFile, catalog());
-  await writeFile(accessFile, stringify({ clients: [{ id: 'test', keys: [{ id: 'one', token }] }] }));
+  const access = { clients: [{ id: 'test', keys: [{ id: 'one', token }] }] };
+  await writeFile(configFile, stringify({ server: { catalogFile, host: '127.0.0.1', port: 3000 }, access }));
   t.after(() => rm(root, { recursive: true, force: true }));
-  return { root, catalogFile, accessFile, token };
+  return { root, catalogFile, configFile, access, token };
 }

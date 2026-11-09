@@ -1,24 +1,42 @@
 ---
 name: deploy
-description: Deploy and maintain fa-model-catalog locally and on Linux as a systemd service without a database.
+description: Deploy and maintain fa-model-catalog on explicitly selected Linux servers as a systemd service.
 ---
 
 # Model catalog deployment
 
-Before deployment or maintenance, read package.json, config/config.example.yaml, scripts/remote.js, and root update.js.
-Resolve connection and deployment values from this skill's config/config.local.yaml; servers.local.md defines aliases.
+Before deployment or maintenance, read package.json, scripts/remote.js, and root update.js.
+Select the installation explicitly with `--server <name>`; never assume a default server.
+Before working on that installation, read its `configs/<name>/rules.md` and follow its specific instructions.
 Never print private files or keys. Never include them in Git, archives, npm packages, or command arguments.
-Create keys with fa-web-access. All consumers share access.clients[0].keys[0].token from the private settings.
+Create keys with fa-web-access. Consumers share access.clients[0].keys[0].token in the application's config/local.yaml.
 
 ## Configuration
 
-Keep connection, runtime, access, and deployment values in config/config.local.yaml following config/config.example.yaml.
-The wrapper accepts `--config <path>` to select another private file and works independently of its caller's directory.
+Each installation has its own folder `configs/<name>/` with three required files:
+
+- `config.yaml`: `remote` and `deployment` sections for connection and deployment settings.
+- `local.yaml`: `access` and `server` sections for access keys and application settings.
+- `rules.md`: installation purpose, network constraints, required checks, and recovery instructions.
+
+For a new installation, copy [configs/_example](configs/_example/) to `configs/<name>/` and fill all three files.
+Names must match `[a-z0-9][a-z0-9._-]*`. Real installation folders are ignored by Git; `_example` cannot be selected.
+Keep private keys outside the project. Ask only for missing settings; never copy credentials from another project.
+The wrapper works independently of its caller's directory. Relative `deployment.catalogSource` paths resolve from
+the project root; absolute paths can select catalogs outside the checkout.
 The remote section defines SSH connection, public hostname, and repository. The server section defines loopback settings
-and persistent catalog/access paths. The deployment section defines the checkout, service, branch, public HTTPS port,
-existing nginx site, managed nginx snippet, and local catalog source. Keep real domains and paths out of public examples.
-Only access and server sections are uploaded separately to /etc/<service>/access.yaml and server.yaml.
-Never upload the complete local settings or the remote section. Do not duplicate keys in another local file.
+and persistent catalog paths. The deployment section defines the checkout, service, branch, public HTTPS port,
+existing nginx site, managed nginx snippet, and local catalog source. Keep real domains and paths out of
+public examples.
+Upload the selected local.yaml as `<appDirectory>/config/local.yaml`, containing both `server` and `access`.
+There is no separate key file or accessFile setting. Never upload config.yaml or the remote section.
+For local startup, use root `config/local.yaml`; `npm start` reads it by default. Keep it outside Git and packages.
+
+Before a remote change, run `show` and match the selected host, branch, checkout, service, and endpoints to the request
+and installation rules. `show` reads local settings only and prints no access tokens or private key paths.
+For multiple servers, run the requested command separately with each explicit name and report each outcome.
+When installations share a host, use distinct checkout paths, service names, loopback ports, nginx snippets, and public
+hostname/port combinations so their managed routes do not overlap. Updating one installation must not affect another.
 
 The existing nginx site must already serve the configured hostname and port with a valid certificate.
 The wrapper adds an include to its HTTPS server and manages only the exact routes `/v1/models/resolve`
@@ -27,10 +45,11 @@ Do not replace a shared virtual host, certificate, root location, or another app
 
 ## Commands
 
-Run `node .agents/skills/deploy/scripts/remote.js <command>` from the checkout:
+Run `node .agents/skills/deploy/scripts/remote.js --server <name> <command>`:
 
 | Command         | Purpose                                                                                        |
 | --------------- | ---------------------------------------------------------------------------------------------- |
+| show            | Show the selected installation and rules path without connecting or printing secrets.          |
 | inspect         | Check target identity, tools, existing nginx site, and loopback port.                          |
 | deploy          | Clone Git code, provision persistent data and systemd, start, configure nginx, and verify.     |
 | check           | Fetch Git state and report whether the server needs synchronization; do not restart.           |
@@ -39,8 +58,7 @@ Run `node .agents/skills/deploy/scripts/remote.js <command>` from the checkout:
 | stop            | Stop only this project's service.                                                              |
 | status / logs   | Read service state, readiness, installed commit, or recent logs.                               |
 | push-catalog    | Validate and atomically replace the catalog from deployment.catalogSource.                     |
-| push-access     | Validate and atomically replace access keys from the private settings.                         |
-| push-config     | Replace runtime settings, reconcile nginx routes, and force an update/restart.                 |
+| push-config     | Replace config/local.yaml including keys, reconcile nginx routes, and force an update/restart. |
 | verify          | Check systemd, internal/public readiness, access denial, authenticated model lookup, and logs. |
 
 ## Git updates
@@ -62,11 +80,12 @@ Code updates use update.js; keep the wrapper focused on connection, provisioning
 ## Persistent data and migration
 
 Keep catalog.yaml at the configured checkout root, ignored by Git. catalog.example.yaml is the public format example.
-Initial deployment installs the validated catalog source and access settings; repeat deployments preserve existing data.
-Only push-catalog and push-access replace existing persistent data. Runtime settings use push-config or deploy.
+Deployment installs the selected config/local.yaml and creates the catalog only if it is missing.
+Only push-catalog replaces an existing catalog. Use push-config or deploy to replace application settings and keys.
+When upgrading an installation that used separate server/key files, run deploy to update the systemd command as well.
 Never stop another service if the configured loopback port is occupied.
 
-For a server move, validate and preserve the old catalog and access keys in private settings first.
+For a server move, validate and preserve the old catalog and config/local.yaml first.
 Deploy and verify the new endpoint before stopping the old service. Remove only the identified old service's unit,
 nginx rules, runtime, and checkout after checking hostname, unit paths, and repository ownership.
 Never remove another application's virtual host, shared certificate, or unrelated files.
@@ -77,5 +96,6 @@ The client HTTP endpoint is `POST /v1/models/resolve` with JSON and bearer authe
 For the package client, baseUrl is the HTTPS origin; it appends /v1/models/resolve automatically.
 Readiness is /health internally and /model-catalog/health on the shared HTTPS site.
 Verify a real model resolves with the configured shared key and an unauthenticated request returns 401.
-Inspect recent service errors. Do not claim success from an exit code alone. Remove temporary test credentials on failure.
+Inspect recent service errors. Do not claim success from an exit code alone.
+Remove temporary test credentials on failure.
 This skill does not independently authorize npm publication or changes to consumers.

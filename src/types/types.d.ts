@@ -24,7 +24,7 @@ export interface Model {
   billing: { kind: 'tokens' | 'quantity' | 'matrix'; unit: Unit; per: number };
   modes: ServiceTier[];
   capabilities: { promptCacheKey: boolean; explicitPromptCaching: boolean; reasoningEfforts: string[] };
-  evidence: { status: 'confirmed' | 'insufficient'; reason: string | null; sources: string[] };
+  evidence: { status: 'confirmed' | 'insufficient'; sources: string[] };
 }
 export interface ModelRecord {
   requestedName: string;

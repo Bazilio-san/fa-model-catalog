@@ -57,10 +57,9 @@ export const modelSchema = {
     evidence: {
       type: 'object',
       additionalProperties: false,
-      required: ['status', 'reason', 'sources'],
+      required: ['status', 'sources'],
       properties: {
         status: { enum: ['confirmed', 'insufficient'] },
-        reason: { type: ['string', 'null'] },
         sources: stringArray,
       },
     },
@@ -138,9 +137,6 @@ export function parseCatalog(text) {
     }
     if (model.billing.kind === 'matrix' && model.billing.unit !== 'images') {
       throw new Error('Invalid image matrix billing unit.');
-    }
-    if (model.evidence.status === 'insufficient' && !model.evidence.reason) {
-      throw new Error('A reason for insufficient evidence is required.');
     }
     for (const mode of model.modes) {
       const fields = {

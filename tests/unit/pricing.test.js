@@ -42,6 +42,15 @@ test('Independent calculation of all cost components and service tiers', () => {
     0.005,
   );
 });
+test('Insufficient evidence preserves the price and qualifies the result without a reason field', () => {
+  const confirmed = calculatePrice(record(), usage);
+  const result = calculatePrice(record({ evidence: { status: 'insufficient', sources: [] } }), usage);
+  assert.equal(result.priceUsd, confirmed.priceUsd);
+  assert.deepEqual(result.parts, confirmed.parts);
+  assert.equal(result.status, 'qualified');
+  assert.deepEqual(result.issues, ['Model prices and capabilities are insufficiently supported by evidence.']);
+});
+
 test('Unknown rates, zero rates, incomplete usage, and stale pricing remain distinct', () => {
   assert.equal(calculatePrice(record({ inp: null }), usage).priceUsd, null);
   assert.equal(calculatePrice(record({ inp: 0 }), usage).parts.input.costUsd, 0);

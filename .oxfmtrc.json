@@ -28,8 +28,11 @@
     "coverage/**",
     "servers.local.md",
     "config/*.local.yaml",
+    "config/local.yaml",
     ".agents/skills/deploy/config/*.local.yaml",
     ".agents/skills/deploy/config/config.local.yaml",
+    ".agents/skills/deploy/configs/*/**",
+    "!.agents/skills/deploy/configs/_example/**",
     "catalog.yaml"
   ]
 }
