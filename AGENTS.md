@@ -16,4 +16,6 @@ Do not read editor directories, temporary data, or archives listed in `.rgignore
 When cleaning up, delete only temporary files created for the current task and preserve other people's data.
 Do not write to Claude Code persistent memory without explicit permission; keep shared knowledge in the project.
 Write concise instructions without repetition; link specialized rules with an explicit reading condition.
+Before creating or editing any `.yaml` or `.yml` file anywhere in the project, read and follow
+[YAML property ordering rules](docs/CONFIG-RULE.md).
 A request to run code checks means `npm run test:code`, without external servers or paid requests.

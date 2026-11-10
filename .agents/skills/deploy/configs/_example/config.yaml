@@ -1,3 +1,11 @@
+deployment:
+  appDirectory: /opt/services/model-catalog
+  branch: master
+  catalogSource: catalog.example.yaml
+  nginxSite: /etc/nginx/sites-enabled/catalog.example.com.conf
+  nginxSnippet: /etc/nginx/snippets/fa-model-catalog.conf
+  publicPort: 443
+  serviceName: fa-model-catalog
 remote:
   host: server.example.com
   keyPath: C:/Users/<user>/.ssh/id_rsa
@@ -5,11 +13,3 @@ remote:
   publicHost: catalog.example.com
   repository: https://example.com/organization/model-catalog.git
   user: root
-deployment:
-  appDirectory: /opt/services/model-catalog
-  serviceName: fa-model-catalog
-  publicPort: 443
-  branch: master
-  nginxSite: /etc/nginx/sites-enabled/catalog.example.com.conf
-  nginxSnippet: /etc/nginx/snippets/fa-model-catalog.conf
-  catalogSource: catalog.example.yaml
