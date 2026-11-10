@@ -197,38 +197,6 @@ async function verify() {
   await ssh(`journalctl -u ${service} -n 10 --no-pager`);
 }
 
-async function configureNginx() {
-  const routes = `
-location = /v1/models/resolve {
-    client_max_body_size 256k;
-    client_body_timeout 10s;
-    proxy_pass http://${runtime.host}:${runtime.port};
-    proxy_set_header Host $host;
-    proxy_set_header Authorization $http_authorization;
-    proxy_connect_timeout 3s;
-    proxy_read_timeout 15s;
-}
-location = /model-catalog/health {
-    proxy_pass http://${runtime.host}:${runtime.port}/health;
-    proxy_connect_timeout 3s;
-    proxy_read_timeout 5s;
-}
-`;
-  const payload = Buffer.from(
-    JSON.stringify({
-      site: nginxSite,
-      service,
-      content: routes,
-      host: config.publicHost,
-      port: publicPort,
-    }),
-  ).toString('base64');
-  const script = await fs.readFile(new URL('./nginx.py', import.meta.url), 'utf8');
-  await ssh(`python3 - '${payload}' <<'PY'
-${script}
-PY`);
-}
-
 async function selectRevision() {
   await run('git', ['diff', '--quiet']);
   await run('git', ['diff', '--cached', '--quiet']);
@@ -274,7 +242,7 @@ try {
   }
   if (command === 'inspect') {
     await ssh(
-      `hostname\nnode --version\ncommand -v nginx\ncommand -v python3\ncommand -v flock\ntest -f ${nginxSite}\nss -H -ltn sport = :${runtime.port}`,
+      `hostname\nnode --version\ncommand -v nginx\ncommand -v flock\ntest -f ${nginxSite}\nss -H -ltn sport = :${runtime.port}`,
     );
   } else if (command === 'verify') {
     await verify();
@@ -297,7 +265,6 @@ try {
     await verify();
   } else if (command === 'push-config') {
     await upload(runtimeText, runtimeFile);
-    await configureNginx();
     await synchronize(true);
     await verify();
   } else if (command === 'deploy') {
@@ -309,7 +276,6 @@ hostname
 node --version
 command -v git
 command -v nginx
-command -v python3
 command -v flock
 test -f ${nginxSite}
 if ! systemctl cat ${service} >/dev/null 2>&1; then
@@ -357,7 +323,6 @@ systemctl daemon-reload
 systemctl enable ${service}`),
     );
     await step('Synchronizing from Git and starting the service', () => synchronize(true));
-    await step('Configuring the existing HTTPS site', configureNginx);
     await step('Verifying the public endpoint', verify);
   }
 } finally {

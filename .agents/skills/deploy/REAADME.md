@@ -21,7 +21,11 @@ Run commands separately for each installation when working with multiple servers
 The repository is fixed to `https://github.com/Bazilio-san/fa-model-catalog.git`; do not set `remote.repository`.
 HTTPS uses port `443` by default. Set `deployment.publicPort` only for a nonstandard HTTPS port.
 `remote.port` is the SSH port, while `server.port` is the application's loopback port.
-The configured Nginx site must already provide HTTPS for the public hostname and port with a valid certificate.
+Before initial deployment, inspect Nginx on the selected server and prepare HTTPS using its existing conventions.
+Follow the Nginx configuration section in [SKILL.md](SKILL.md). Save installation-specific files as
+`configs/<server_name>/*.config` and record their destinations and application conditions in `rules.md`.
+Reuse them only when setup or repair is needed or a Nginx change was requested; preserve working remote settings.
+The wrapper never writes Nginx files or reloads Nginx, including during `deploy` and `push-config`.
 
 Set the shared access token directly in `local.yaml`:
 
@@ -67,18 +71,18 @@ The wrapper also works from other directories when invoked by its absolute path.
 Before changing a server, run `show` and check the host, checkout, branch, service, endpoints, and catalog source.
 `show` reads local settings without connecting or printing credentials.
 
-| Command            | Purpose                                                                                   |
-| ------------------ | ----------------------------------------------------------------------------------------- |
-| `inspect`          | Inspect target identity, tools, Nginx site, and listener port.                            |
-| `deploy`           | Provision the service, install catalog and settings, configure routes, start, and verify. |
-| `check`            | Fetch Git state and check whether synchronization is needed without restarting.           |
-| `update`           | Synchronize committed code through the project updater and verify.                        |
-| `start`, `restart` | Synchronize code and force a service restart.                                             |
-| `stop`             | Stop the selected service.                                                                |
-| `status`, `logs`   | Read service status or recent logs.                                                       |
-| `push-catalog`     | Validate and replace the catalog using the selection order above.                         |
-| `push-config`      | Upload application settings, reconcile Nginx routes, restart, and verify.                 |
-| `verify`           | Check service readiness, public access control, model retrieval, and logs.                |
+| Command            | Purpose                                                                         |
+| ------------------ | ------------------------------------------------------------------------------- |
+| `inspect`          | Inspect target identity, tools, Nginx site, and listener port.                  |
+| `deploy`           | Provision the service, install catalog and settings, start, and verify.         |
+| `check`            | Fetch Git state and check whether synchronization is needed without restarting. |
+| `update`           | Synchronize committed code through the project updater and verify.              |
+| `start`, `restart` | Synchronize code and force a service restart.                                   |
+| `stop`             | Stop the selected service.                                                      |
+| `status`, `logs`   | Read service status or recent logs.                                             |
+| `push-catalog`     | Validate and replace the catalog using the selection order above.               |
+| `push-config`      | Upload application settings, restart, and verify.                               |
+| `verify`           | Check service readiness, public access control, model retrieval, and logs.      |
 
 ## Operational rules
 

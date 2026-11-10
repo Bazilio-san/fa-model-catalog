@@ -1,0 +1,93 @@
+# Set baseUrl (HTTPS origin without a trailing slash) and accessToken in your private HTTP client environment.
+# Short routes require the installation-specific Nginx configuration.
+# Both data routes accept the same JSON body and bearer token.
+
+### Short health route: 200, status ok
+GET {{baseUrl}}/health
+Accept: application/json
+
+### Compatibility health route: 200, status ok
+GET {{baseUrl}}/model-catalog/health
+Accept: application/json
+
+### Short data route, one known model: 200, found
+POST {{baseUrl}}/data
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{"models":["gpt-6-sol"]}
+
+### Short data route, batch with an unknown model: 200
+POST {{baseUrl}}/data
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{"models":["gpt-6-sol","nonexistent-model-for-http-test"]}
+
+### Short data route, empty batch: 200, empty array
+POST {{baseUrl}}/data
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{"models":[]}
+
+### Short data route, missing token: 401
+POST {{baseUrl}}/data
+Content-Type: application/json
+
+{"models":["gpt-6-sol"]}
+
+### Short data route, invalid token: 401
+POST {{baseUrl}}/data
+Content-Type: application/json
+Authorization: Bearer invalid-token-for-http-test
+
+{"models":["gpt-6-sol"]}
+
+### Short data route, invalid body: 400
+POST {{baseUrl}}/data
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{"models":"gpt-6-sol"}
+
+### Compatibility data route, one known model: 200, found
+POST {{baseUrl}}/v1/models/resolve
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{"models":["gpt-6-sol"]}
+
+### Compatibility data route, batch with an unknown model: 200
+POST {{baseUrl}}/v1/models/resolve
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{"models":["gpt-6-sol","nonexistent-model-for-http-test"]}
+
+### Compatibility data route, empty batch: 200, empty array
+POST {{baseUrl}}/v1/models/resolve
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{"models":[]}
+
+### Compatibility data route, missing token: 401
+POST {{baseUrl}}/v1/models/resolve
+Content-Type: application/json
+
+{"models":["gpt-6-sol"]}
+
+### Compatibility data route, invalid token: 401
+POST {{baseUrl}}/v1/models/resolve
+Content-Type: application/json
+Authorization: Bearer invalid-token-for-http-test
+
+{"models":["gpt-6-sol"]}
+
+### Compatibility data route, invalid body: 400
+POST {{baseUrl}}/v1/models/resolve
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{"models":"gpt-6-sol"}

@@ -3,9 +3,12 @@
 The service endpoint, host, ports, and certificate settings are defined by each deployment.
 Clients call `POST /v1/models/resolve`, with a bearer access key and a JSON body such as
 `{"models":["gpt-6-sol"]}`. The package client takes only the HTTPS origin in `baseUrl` and adds this path.
-The deployment setup uses a loopback application listener and an existing nginx HTTPS site.
-The wrapper adds `/v1/models/resolve` and `/model-catalog/health` directly to the selected nginx site in a marked block.
-There is no separate application nginx file. Other routes remain owned by the site.
+The deployment setup uses a loopback application listener and an installation-specific Nginx HTTPS configuration.
+Before initial deployment, inspect the server and choose a dedicated site, shared site routes, or an included fragment.
+Save the selected configuration as `.agents/skills/deploy/configs/<name>/*.config` and record its remote destinations
+and application conditions in that installation's `rules.md`. Preserve other applications' routes and certificates.
+The wrapper never writes Nginx files or reloads Nginx. Apply saved configuration only when setup, repair, or a requested
+Nginx change requires it; test before reload and verify the public endpoint. Routine updates preserve working settings.
 The service requires neither databases nor calls to model providers.
 
 For deployment from a source checkout, use the project deployment skill with your own server settings.

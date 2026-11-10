@@ -42,11 +42,37 @@ For multiple servers, run the requested command separately with each explicit na
 When installations share a host, use distinct checkout paths, service names, loopback ports, and public
 hostname/port combinations so their managed routes do not overlap. Updating one installation must not affect another.
 
-The existing nginx site must already serve the configured hostname and port with a valid certificate.
-The wrapper manages the exact routes `/v1/models/resolve` and `/model-catalog/health` directly in nginxSite,
-inside a marked block in the matching HTTPS server. There is no separate application nginx file.
-It tests nginx before reloading and restores the site if testing or reloading fails.
-Do not replace a shared virtual host, certificate, root location, or another application's routes.
+## Nginx configuration
+
+Before an initial deployment, inspect the selected server's enabled sites, includes, certificate coverage and expiry,
+listeners, and hostname resolution. Use the server's existing conventions to choose a suitable arrangement:
+a dedicated site, routes in a shared site, or an included fragment. Do not assume another server's layout applies.
+An absent site is a reason to investigate and configure it, not to stop when the required settings are discoverable.
+Read certificate metadata and paths only; never read private key contents.
+
+Save the actual Nginx configuration in `configs/<name>/*.config`. These are private, installation-specific artifacts,
+not universal templates. In that installation's `rules.md`, record each artifact's remote destination, whether it is a
+complete dedicated site or a fragment, its inclusion or symlink arrangement, certificate dependencies, and checks.
+For an existing installation without saved artifacts, capture its working configuration without changing the server.
+Do not store private key contents or access tokens in these artifacts.
+
+On subsequent runs, check the service and relevant live configuration first. If the intended endpoint and routes
+already work, leave remote Nginx files and the running Nginx process alone, even during `deploy` or `push-config`.
+A saved artifact is a recovery source, not a reason to overwrite a working site. Apply it only for initial setup,
+a demonstrated missing or incorrect configuration, or an explicit request to change Nginx. Compare saved content
+with the live configuration before applying it; preserve changes made by administrators and unrelated routes.
+If listener or endpoint settings change, reconcile only the affected configuration as needed before verification.
+
+When a change is needed, adapt and save the configuration for this installation, preserve the affected remote files
+for rollback, and install only the necessary files or fragments. Test with `nginx -t` before reloading. Restore the
+previous files on test or reload failure and confirm Nginx remains operational; remove only new files from this task.
+Do not replace a shared site wholesale or change another application's routes, certificates, or listeners.
+Verify TLS with certificate validation, public health, and authenticated and unauthenticated model requests.
+
+The wrapper manages application deployment and verification only; it never writes or reloads Nginx configuration.
+Prepare any necessary Nginx configuration before invoking `deploy`, which verifies the public endpoint at the end.
+The routes must expose `POST /v1/models/resolve` with the Authorization header preserved and
+`/model-catalog/health` mapped to the loopback `/health`. Choose other proxy settings for the installation.
 
 ## Commands
 
@@ -56,14 +82,14 @@ Run `node .agents/skills/deploy/scripts/remote.js --server <name> <command>`:
 | --------------- | ---------------------------------------------------------------------------------------------- |
 | show            | Show the selected installation and rules path without connecting or printing secrets.          |
 | inspect         | Check target identity, tools, existing nginx site, and loopback port.                          |
-| deploy          | Clone Git code, provision persistent data and systemd, start, configure nginx, and verify.     |
+| deploy          | Clone Git code, provision persistent data and systemd, start, and verify.                      |
 | check           | Fetch Git state and report whether the server needs synchronization; do not restart.           |
 | update          | Update the selected Git commit through root update.js, then verify the public endpoint.        |
 | start / restart | Use the same updater with a forced restart, even when the commit is unchanged.                 |
 | stop            | Stop only this project's service.                                                              |
 | status / logs   | Read service state, readiness, installed commit, or recent logs.                               |
 | push-catalog    | Validate and atomically replace the catalog from the automatically selected local file.        |
-| push-config     | Replace config/local.yaml including keys, reconcile nginx routes, and force an update/restart. |
+| push-config     | Replace config/local.yaml including keys and force an update/restart.                          |
 | verify          | Check systemd, internal/public readiness, access denial, authenticated model lookup, and logs. |
 
 ## Git updates
