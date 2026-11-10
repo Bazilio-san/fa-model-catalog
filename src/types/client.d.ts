@@ -1,7 +1,14 @@
 import type { ModelRecord } from './types.js';
-export interface ClientOptions {
+export interface ClientEndpoint {
   baseUrl: string;
   token: string;
+}
+export type ClientOptions = ClientSettings &
+  (
+    | { baseUrl: string; token: string; endpoints?: never }
+    | { endpoints: [ClientEndpoint, ...ClientEndpoint[]]; baseUrl?: never; token?: never }
+  );
+export interface ClientSettings {
   models?: string[];
   timezone?: string;
   timeoutMs?: number;

@@ -4,6 +4,7 @@ import { nextRefreshTime } from './schedule.js';
 export function createCatalogClient({
   baseUrl,
   token,
+  endpoints,
   models = [],
   timezone = 'Europe/Moscow',
   timeoutMs = 10000,
@@ -14,16 +15,44 @@ export function createCatalogClient({
   clearTimer = clearTimeout,
   onEvent = () => {},
 }) {
-  const url = new URL(baseUrl);
-  if (url.username || url.password || url.search || url.hash || !['http:', 'https:'].includes(url.protocol)) {
-    throw new Error('Invalid service URL.');
-  }
-  if (url.protocol !== 'https:' && !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)) {
-    throw new Error('HTTPS is required for a remote service.');
-  }
-  if (typeof token !== 'string' || !token || /[\r\n]/.test(token) || !Number.isFinite(timeoutMs) || timeoutMs <= 0) {
+  if (
+    !Number.isFinite(timeoutMs) ||
+    timeoutMs <= 0 ||
+    (endpoints !== undefined && (baseUrl !== undefined || token !== undefined))
+  ) {
     throw new Error('Invalid client settings.');
   }
+  const settings = endpoints === undefined ? [{ baseUrl, token }] : endpoints;
+  if (!Array.isArray(settings) || !settings.length) {
+    throw new Error('Expected a nonempty array of service endpoints.');
+  }
+  const services = Array.from(settings, (endpoint) => {
+    if (
+      !endpoint ||
+      typeof endpoint.baseUrl !== 'string' ||
+      typeof endpoint.token !== 'string' ||
+      !endpoint.token ||
+      /[\r\n]/.test(endpoint.token)
+    ) {
+      throw new Error('Invalid client settings.');
+    }
+    let url;
+    try {
+      url = new URL(endpoint.baseUrl);
+    } catch {
+      throw new Error('Invalid service URL.');
+    }
+    if (url.username || url.password || url.search || url.hash || !['http:', 'https:'].includes(url.protocol)) {
+      throw new Error('Invalid service URL.');
+    }
+    if (url.protocol !== 'https:' && !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)) {
+      throw new Error('HTTPS is required for a remote service.');
+    }
+    return {
+      url: new URL('v1/models/resolve', url.href.endsWith('/') ? url : new URL(`${url.href}/`)),
+      token: endpoint.token,
+    };
+  });
   new Intl.DateTimeFormat('en', { timeZone: timezone }).format();
   const cache = new Map();
   const wanted = new Set();
@@ -80,26 +109,21 @@ export function createCatalogClient({
     }, delay);
     retryTimer.unref?.();
   };
-  const request = async (names) => {
-    if (stopped) {
-      return;
-    }
+  const attempt = async (names, service) => {
     const controller = new AbortController();
     controllers.add(controller);
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
     timeout.unref?.();
     try {
-      const response = await fetcher(
-        new URL('v1/models/resolve', url.href.endsWith('/') ? url : new URL(`${url.href}/`)),
-        {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ models: names }),
-          signal: controller.signal,
-          redirect: 'error',
-        },
-      );
+      const response = await fetcher(service.url, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${service.token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ models: names }),
+        signal: controller.signal,
+        redirect: 'error',
+      });
       if (!response.ok) {
+        await response.body?.cancel().catch(() => {});
         const retryAfter = response.headers.get('retry-after');
         const retrySeconds =
           retryAfter && /^\d+$/.test(retryAfter)
@@ -113,7 +137,12 @@ export function createCatalogClient({
         });
       }
       const text = await readBounded(response, 8 * 1024 * 1024);
-      const data = JSON.parse(text);
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw Object.assign(new Error(), { status: 400, invalidResponse: true });
+      }
       if (
         !Array.isArray(data) ||
         data.length !== names.length ||
@@ -121,6 +150,35 @@ export function createCatalogClient({
         new Set(data.map((r) => r.catalogVersion)).size > 1
       ) {
         throw Object.assign(new Error(), { status: 400, invalidResponse: true });
+      }
+      return data;
+    } finally {
+      clearTimeout(timeout);
+      controllers.delete(controller);
+    }
+  };
+  const temporary = (error) => !error.status || error.status === 429 || error.status >= 500;
+  const request = async (names) => {
+    if (stopped) {
+      return;
+    }
+    try {
+      let data;
+      let retryAfter = 0;
+      for (let index = 0; index < services.length; index++) {
+        try {
+          data = await attempt(names, services[index]);
+          break;
+        } catch (error) {
+          if (stopped) {
+            return;
+          }
+          retryAfter = Math.max(retryAfter, error.retryAfter ?? 0);
+          if (!temporary(error) || index === services.length - 1) {
+            error.retryAfter = retryAfter;
+            throw error;
+          }
+        }
       }
       if (stopped) {
         return;
@@ -144,12 +202,9 @@ export function createCatalogClient({
         cache.set(name, { ...old, stale: old.lastSuccessAt !== null, reason });
       });
       emit({ event: 'prices_unavailable', count: names.length, reason });
-      if (!e.status || e.status === 429 || e.status >= 500) {
+      if (temporary(e)) {
         planRetry(e.retryAfter);
       }
-    } finally {
-      clearTimeout(timeout);
-      controllers.delete(controller);
     }
   };
   const enqueue = (names) => {
