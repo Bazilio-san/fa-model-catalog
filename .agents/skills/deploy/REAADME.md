@@ -20,6 +20,9 @@ Run commands separately for each installation when working with multiple servers
 
 The repository is fixed to `https://github.com/Bazilio-san/fa-model-catalog.git`; do not set `remote.repository`.
 HTTPS uses port `443` by default. Set `deployment.publicPort` only for a nonstandard HTTPS port.
+Set `deployment.nodeBinDirectory`, for example `/opt/node-22/bin`, when non-interactive SSH on the server finds
+Node.js older than 22 first. The wrapper puts it first on the remote `PATH` for `node`, `npm`, and `update.js`.
+The service runs a copy of that Node.js installed at deployment; rerun `deploy` after changing this setting.
 `remote.port` is the SSH port, while `server.port` is the application's loopback port.
 Before initial deployment, inspect Nginx on the selected server and prepare HTTPS using its existing conventions.
 Follow the Nginx configuration section in [SKILL.md](SKILL.md). Save installation-specific files as

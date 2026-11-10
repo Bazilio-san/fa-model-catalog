@@ -28,7 +28,9 @@ The wrapper works independently of its caller's directory. Select the first exis
 `configs/<server>/catalog.yaml`, root `catalog.yaml`, then root `catalog.example.yaml`.
 Copy it to the remote project root as `catalog.yaml`.
 The remote section defines SSH connection and public hostname. The repository is fixed to this project. Omit deployment.publicPort for HTTPS port 443.
-Set it only for a nonstandard HTTPS port. The server section defines loopback settings
+Set it only for a nonstandard HTTPS port.
+Set deployment.nodeBinDirectory when non-interactive SSH finds Node.js older than 22 first; the wrapper
+puts that directory first on the remote PATH for node, npm, the service's Node.js copy, and update.js. The server section defines loopback settings
 and persistent catalog paths. The deployment section defines the checkout, service, branch, public HTTPS port,
 existing nginx site and local catalog source. Keep real domains and paths out of
 public examples.

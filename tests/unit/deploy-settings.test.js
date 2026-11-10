@@ -68,8 +68,26 @@ test('Show runs from another directory without connections or exposing access ke
   assert.equal(shown.host, 'server.example.com');
   assert.equal(shown.serviceName, 'fa-model-catalog');
   assert.equal(shown.publicOrigin, 'https://catalog.example.com');
+  assert.equal(shown.nodeBinDirectory, 'remote PATH');
   const configFile = resolve(folder, 'config.yaml');
   const config = parse(await fs.readFile(configFile, 'utf8'));
+  for (const nodeBinDirectory of ['/opt/node-22/bin', 'opt/node/bin', '/opt/../bin', '/opt/node bin']) {
+    config.deployment.nodeBinDirectory = nodeBinDirectory;
+    await fs.writeFile(configFile, stringify(config));
+    const custom = spawnSync(
+      process.execPath,
+      [resolve('.agents/skills/deploy/scripts/remote.js'), '--server', name, 'show'],
+      { cwd: tmpdir(), encoding: 'utf8', windowsHide: true },
+    );
+    if (nodeBinDirectory === '/opt/node-22/bin') {
+      assert.equal(custom.status, 0, custom.stderr);
+      assert.equal(JSON.parse(custom.stdout).nodeBinDirectory, nodeBinDirectory);
+    } else {
+      assert.notEqual(custom.status, 0);
+      assert.match(custom.stderr, /Invalid connection/);
+    }
+  }
+  delete config.deployment.nodeBinDirectory;
   for (const port of [8443, 0, 65536]) {
     config.deployment.publicPort = port;
     await fs.writeFile(configFile, stringify(config));

@@ -36,7 +36,7 @@ const config = settings.remote;
 const { deployment } = settings;
 const runtime = { ...settings.server, catalogFile: `${settings.deployment.appDirectory}/catalog.yaml` };
 const catalogSource = selectCatalogSource(selection.configDirectory, root);
-const { appDirectory: app, serviceName: service, branch, nginxSite, publicPort = 443 } = deployment;
+const { appDirectory: app, serviceName: service, branch, nginxSite, nodeBinDirectory, publicPort = 443 } = deployment;
 const repository = 'https://github.com/Bazilio-san/fa-model-catalog.git';
 const validPath = (value) =>
   typeof value === 'string' && /^\/[a-zA-Z0-9_./-]+$/.test(value) && !value.split('/').includes('..');
@@ -62,6 +62,7 @@ if (
   branch.includes('..') ||
   !validPath(nginxSite) ||
   !nginxSite.startsWith('/etc/nginx/') ||
+  (nodeBinDirectory !== undefined && !validPath(nodeBinDirectory)) ||
   !Number.isInteger(publicPort) ||
   publicPort < 1 ||
   publicPort > 65535 ||
@@ -89,6 +90,7 @@ if (command === 'show') {
         branch,
         appDirectory: app,
         serviceName: service,
+        nodeBinDirectory: nodeBinDirectory ?? 'remote PATH',
         healthUrl,
         publicOrigin,
         catalogSource: catalogSource,
@@ -141,8 +143,10 @@ function run(bin, args, input = null, capture = false) {
     );
   });
 }
+// Node.js and npm from nodeBinDirectory take precedence over older versions on the remote PATH.
+const remotePath = nodeBinDirectory ? `export PATH=${nodeBinDirectory}:"$PATH"\n` : '';
 const ssh = (script, capture = false) =>
-  run('ssh', [...options, destination, 'bash -se'], `set -euo pipefail\n${script}\n`, capture);
+  run('ssh', [...options, destination, 'bash -se'], `set -euo pipefail\n${remotePath}${script}\n`, capture);
 async function step(name, fn) {
   stage = name;
   console.log(`${name}...`);
