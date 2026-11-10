@@ -66,6 +66,23 @@ test('Evidence needs no reason field and still requires a valid status and sourc
   }
 });
 
+test('Source string aliases preserve catalog values and version; collection aliases are rejected', () => {
+  const url = 'https://developers.openai.com/api/docs/pricing';
+  const text = catalog({
+    a: model({ evidence: { status: 'insufficient', sources: [url] } }),
+    b: model({ evidence: { status: 'insufficient', sources: [url] } }),
+  });
+  let occurrences = 0;
+  const anchored = text.replaceAll(url, () => (++occurrences === 1 ? `&openaiPricing ${url}` : '*openaiPricing'));
+  assert.equal(parseCatalog(anchored).catalogVersion, parseCatalog(text).catalogVersion);
+  assert.deepEqual(parseCatalog(anchored).models.b.evidence.sources, [url]);
+  assert.throws(() =>
+    parseCatalog(
+      text.replace('sources:', 'sources: &sourceList').replace(`sources:\n        - ${url}`, 'sources: *sourceList'),
+    ),
+  );
+});
+
 test('A stable version does not depend on key order', () => {
   const a = parseCatalog(catalog({ a: model(), b: 'a' }));
   const b = parseCatalog(catalog({ b: 'a', a: model() }));

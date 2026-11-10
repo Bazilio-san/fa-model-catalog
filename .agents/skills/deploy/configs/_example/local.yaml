@@ -1,11 +1,6 @@
 access:
-  clients:
-    - id: shared
-      keys:
-        - id: primary
-          token: REPLACE_WITH_ACCESS_TOKEN
+  token: REPLACE_WITH_ACCESS_TOKEN
 server:
-  catalogFile: /opt/services/model-catalog/catalog.yaml
   host: 127.0.0.1
   port: 3000
   reloadIntervalMs: 5000

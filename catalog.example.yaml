@@ -11,8 +11,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - &openaiPricing https://developers.openai.com/api/docs/pricing
       status: insufficient
     inp: 1.5
     inpB: 1.5
@@ -48,8 +47,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -77,8 +75,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -106,8 +103,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -135,8 +131,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.04
     inpB: 0.04
@@ -164,8 +159,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2
     inpB: 1
@@ -193,8 +187,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -222,8 +215,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -260,8 +252,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.15
     inpB: 0.15
@@ -290,8 +281,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2
     inpB: 1
@@ -320,8 +310,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.4
     inpB: 0.2
@@ -350,8 +339,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.1
     inpB: 0.05
@@ -380,8 +368,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2.5
     inpB: 1.25
@@ -410,8 +397,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2.5
     inpB: 2.5
@@ -440,8 +426,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.15
     inpB: 0.075
@@ -470,8 +455,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -499,8 +483,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -528,8 +511,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -557,8 +539,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 1.25
     inpB: 1.25
@@ -587,8 +568,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.6
     inpB: 0.6
@@ -616,8 +596,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 5
     inpB: 5
@@ -645,8 +624,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -674,8 +652,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2.5
     inpB: 2.5
@@ -704,8 +681,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2.5
     inpB: 2.5
@@ -734,8 +710,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 1.25
     inpB: 0.625
@@ -774,8 +749,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.25
     inpB: 0.125
@@ -807,8 +781,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.05
     inpB: 0.025
@@ -847,8 +820,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 1.25
     inpB: 1.25
@@ -877,8 +849,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 1.25
     inpB: 0.625
@@ -910,8 +881,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 1.75
     inpB: 0.875
@@ -943,8 +913,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 1.75
     inpB: 1.75
@@ -980,8 +949,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 1.75
     inpB: 1.75
@@ -1017,8 +985,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2.5
     inpB: 1.25
@@ -1058,8 +1025,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.75
     inpB: 0.375
@@ -1098,8 +1064,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.2
     inpB: 0.1
@@ -1138,8 +1103,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 5
     inpB: 2.5
@@ -1178,8 +1142,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.2
     inpB: 0.1
@@ -1218,8 +1181,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 5
     inpB: 2.5
@@ -1258,8 +1220,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2
     inpB: 1
@@ -1298,8 +1259,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 10
     inpB: 5
@@ -1338,8 +1298,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.1
     inpB: 0.05
@@ -1378,8 +1337,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2
     inpB: 1
@@ -1416,8 +1374,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2
     inpB: 1
@@ -1450,8 +1407,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 1
     inpB: 0.5
@@ -1483,8 +1439,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2.5
     inpB: 2.5
@@ -1513,8 +1468,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2.5
     inpB: 2.5
@@ -1543,8 +1497,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.6
     inpB: 0.6
@@ -1573,8 +1526,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     high:
       1024x1024: 0.211
@@ -1601,8 +1553,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 4
     inpB: 4
@@ -1631,8 +1582,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 4
     inpB: 4
@@ -1661,8 +1611,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.6
     inpB: 0.6
@@ -1691,8 +1640,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 1.1
     inpB: 0.55
@@ -1724,8 +1672,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 2
     inpB: 2
@@ -1766,8 +1713,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.13
     inpC: 0.13
@@ -1780,6 +1726,7 @@ models:
       - standard
     out: 0.13
     outF: 0.13
+  openai/text-embedding-3-small: text-embedding-3-small
   openrouter/z-ai/glm-5.3-flash: glm5.3-flash
   sora-2:
     billing:
@@ -1792,8 +1739,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -1822,8 +1768,7 @@ models:
       reasoningEfforts: []
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0
     inpB: 0
@@ -1865,8 +1810,7 @@ models:
     dimensionsAllowed: true
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.13
     inpB: 0.13
@@ -1905,8 +1849,7 @@ models:
     dimensionsAllowed: true
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.02
     inpB: 0.02
@@ -1941,8 +1884,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 15
     inpB: 15
@@ -1977,8 +1919,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 30
     inpB: 30
@@ -2013,8 +1954,7 @@ models:
         - max
     evidence:
       sources:
-        - imported-catalog
-        - https://developers.openai.com/api/docs/pricing
+        - *openaiPricing
       status: insufficient
     inp: 0.006
     inpB: 0.006

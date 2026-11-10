@@ -5,11 +5,13 @@ description: Deploy and maintain fa-model-catalog on explicitly selected Linux s
 
 # Model catalog deployment
 
+For setup, defaults, catalog selection, and command usage, read [REAADME.md](REAADME.md).
+
 Before deployment or maintenance, read package.json, scripts/remote.js, and root update.js.
 Select the installation explicitly with `--server <name>`; never assume a default server.
 Before working on that installation, read its `configs/<name>/rules.md` and follow its specific instructions.
 Never print private files or keys. Never include them in Git, archives, npm packages, or command arguments.
-Create keys with fa-web-access. Consumers share access.clients[0].keys[0].token in the application's config/local.yaml.
+Create keys with fa-web-access. Consumers share access.token in the application's config/local.yaml.
 
 ## Configuration
 
@@ -22,11 +24,13 @@ Each installation has its own folder `configs/<name>/` with three required files
 For a new installation, copy [configs/_example](configs/_example/) to `configs/<name>/` and fill all three files.
 Names must match `[a-z0-9][a-z0-9._-]*`. Real installation folders are ignored by Git; `_example` cannot be selected.
 Keep private keys outside the project. Ask only for missing settings; never copy credentials from another project.
-The wrapper works independently of its caller's directory. Relative `deployment.catalogSource` paths resolve from
-the project root; absolute paths can select catalogs outside the checkout.
-The remote section defines SSH connection, public hostname, and repository. The server section defines loopback settings
+The wrapper works independently of its caller's directory. Select the first existing catalog from
+`configs/<server>/catalog.yaml`, root `catalog.yaml`, then root `catalog.example.yaml`.
+Copy it to the remote project root as `catalog.yaml`.
+The remote section defines SSH connection and public hostname. The repository is fixed to this project. Omit deployment.publicPort for HTTPS port 443.
+Set it only for a nonstandard HTTPS port. The server section defines loopback settings
 and persistent catalog paths. The deployment section defines the checkout, service, branch, public HTTPS port,
-existing nginx site, managed nginx snippet, and local catalog source. Keep real domains and paths out of
+existing nginx site and local catalog source. Keep real domains and paths out of
 public examples.
 Upload the selected local.yaml as `<appDirectory>/config/local.yaml`, containing both `server` and `access`.
 There is no separate key file or accessFile setting. Never upload config.yaml or the remote section.
@@ -35,12 +39,13 @@ For local startup, use root `config/local.yaml`; `npm start` reads it by default
 Before a remote change, run `show` and match the selected host, branch, checkout, service, and endpoints to the request
 and installation rules. `show` reads local settings only and prints no access tokens or private key paths.
 For multiple servers, run the requested command separately with each explicit name and report each outcome.
-When installations share a host, use distinct checkout paths, service names, loopback ports, nginx snippets, and public
+When installations share a host, use distinct checkout paths, service names, loopback ports, and public
 hostname/port combinations so their managed routes do not overlap. Updating one installation must not affect another.
 
 The existing nginx site must already serve the configured hostname and port with a valid certificate.
-The wrapper adds an include to its HTTPS server and manages only the exact routes `/v1/models/resolve`
-and `/model-catalog/health`. It tests nginx before reloading and restores changed configuration if the test fails.
+The wrapper manages the exact routes `/v1/models/resolve` and `/model-catalog/health` directly in nginxSite,
+inside a marked block in the matching HTTPS server. There is no separate application nginx file.
+It tests nginx before reloading and restores the site if testing or reloading fails.
 Do not replace a shared virtual host, certificate, root location, or another application's routes.
 
 ## Commands
@@ -57,7 +62,7 @@ Run `node .agents/skills/deploy/scripts/remote.js --server <name> <command>`:
 | start / restart | Use the same updater with a forced restart, even when the commit is unchanged.                 |
 | stop            | Stop only this project's service.                                                              |
 | status / logs   | Read service state, readiness, installed commit, or recent logs.                               |
-| push-catalog    | Validate and atomically replace the catalog from deployment.catalogSource.                     |
+| push-catalog    | Validate and atomically replace the catalog from the automatically selected local file.                     |
 | push-config     | Replace config/local.yaml including keys, reconcile nginx routes, and force an update/restart. |
 | verify          | Check systemd, internal/public readiness, access denial, authenticated model lookup, and logs. |
 
@@ -80,8 +85,9 @@ Code updates use update.js; keep the wrapper focused on connection, provisioning
 ## Persistent data and migration
 
 Keep catalog.yaml at the configured checkout root, ignored by Git. catalog.example.yaml is the public format example.
-Deployment installs the selected config/local.yaml and creates the catalog only if it is missing.
-Only push-catalog replaces an existing catalog. Use push-config or deploy to replace application settings and keys.
+Deployment installs the selected config/local.yaml and replaces the catalog with the selected local file.
+Both deploy and push-catalog replace an existing catalog. Code updates preserve it.
+Use push-config or deploy to replace application settings and keys.
 When upgrading an installation that used separate server/key files, run deploy to update the systemd command as well.
 Never stop another service if the configured loopback port is occupied.
 

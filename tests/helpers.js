@@ -34,7 +34,7 @@ export async function files(t) {
   await mkdir(`${root}/config`);
   const token = 'a'.repeat(43);
   await writeFile(catalogFile, catalog());
-  const access = { clients: [{ id: 'test', keys: [{ id: 'one', token }] }] };
+  const access = { token };
   await writeFile(configFile, stringify({ server: { catalogFile, host: '127.0.0.1', port: 3000 }, access }));
   t.after(() => rm(root, { recursive: true, force: true }));
   return { root, catalogFile, configFile, access, token };

@@ -13,7 +13,7 @@ test('Application settings contain keys and resolve the catalog relative to conf
   await writeFile(fixture.configFile, stringify(data));
   const settings = await readSettings(fixture.configFile);
   assert.equal(settings.server.catalogFile.replaceAll('\\', '/'), fixture.catalogFile.replaceAll('\\', '/'));
-  assert.equal(settings.access.clients[0].keys[0].token, fixture.token);
+  assert.equal(settings.access.token, fixture.token);
   for (const server of [
     { ...data.server, accessFile: '/etc/obsolete/access.yaml' },
     { ...data.server, reloadIntervalMs: 0 },
@@ -39,7 +39,7 @@ test('Inline keys reload from application settings, retain valid keys on errors,
   await access.load();
   access.authenticate(request(fixture.token));
   const settings = parse(await readFile(fixture.configFile, 'utf8'));
-  settings.access.clients[0].keys[0].token = 'b'.repeat(43);
+  settings.access.token = 'b'.repeat(43);
   await writeFile(fixture.configFile, stringify(settings));
   await access.reload();
   assert.throws(() => access.authenticate(request(fixture.token)));
@@ -48,7 +48,7 @@ test('Inline keys reload from application settings, retain valid keys on errors,
   await assert.rejects(access.reload());
   access.authenticate(request('b'.repeat(43)));
   assert(!JSON.stringify(events).includes(fixture.token));
-  settings.access.clients = [];
+  settings.access.token = '';
   await writeFile(fixture.configFile, stringify(settings));
   await access.reload();
   assert.throws(() => access.authenticate(request('b'.repeat(43))));

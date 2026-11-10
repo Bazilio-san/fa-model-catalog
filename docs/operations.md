@@ -4,10 +4,11 @@ The service endpoint, host, ports, and certificate settings are defined by each 
 Clients call `POST /v1/models/resolve`, with a bearer access key and a JSON body such as
 `{"models":["gpt-6-sol"]}`. The package client takes only the HTTPS origin in `baseUrl` and adds this path.
 The deployment setup uses a loopback application listener and an existing nginx HTTPS site.
-Its managed snippet adds only `/v1/models/resolve` and `/model-catalog/health`; other routes remain owned by the site.
+The wrapper adds `/v1/models/resolve` and `/model-catalog/health` directly to the selected nginx site in a marked block.
+There is no separate application nginx file. Other routes remain owned by the site.
 The service requires neither databases nor calls to model providers.
 
-For deployment from a source checkout, use the project deployment skill with your own repository and server settings.
+For deployment from a source checkout, use the project deployment skill with your own server settings.
 Each named installation follows the [connection example](../.agents/skills/deploy/configs/_example/config.yaml)
 and [application example](../.agents/skills/deploy/configs/_example/local.yaml).
 Copy the example folder to `.agents/skills/deploy/configs/<name>/` and fill `config.yaml`, `local.yaml`, and `rules.md`.
@@ -26,8 +27,9 @@ npm start
 ```
 
 The default application settings file is `config/local.yaml`; use `--config <path>` for another location.
-Its `server.catalogFile` resolves relative to the settings file. Its `access.clients` contains access keys directly.
-Consumers share `access.clients[0].keys[0].token`. For deployment, prepare the same settings in the selected
+Optional `server.catalogFile` resolves relative to the settings file. By default, use `catalog.yaml` from the
+project root, falling back to `catalog.example.yaml`. Its `access.token` contains the shared access token.
+Consumers share `access.token`. For deployment, prepare the same settings in the selected
 `.agents/skills/deploy/configs/<name>/local.yaml`; the wrapper installs it as the application's `config/local.yaml`.
 Keys are reread while the service runs. Invalid edits retain the last valid keys; an empty client list revokes access.
 Other server setting changes require a restart.

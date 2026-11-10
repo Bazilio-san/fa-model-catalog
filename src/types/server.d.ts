@@ -1,8 +1,8 @@
 import type { AddressInfo } from 'node:net';
 import type { Server as HttpServer } from 'node:http';
 export interface ServerOptions {
-  catalogFile: string;
-  access: { clients: { id: string; keys: { id: string; token: string }[] }[] };
+  catalogFile?: string;
+  access: { token: string };
   configFile?: string;
   reloadIntervalMs?: number;
   onEvent?: (event: object) => void;

@@ -41,12 +41,12 @@ test('Access control, batch responses, limits, and key reloading', async (t) => 
   assert.equal((await send({ models: ['a'.repeat(270000)] })).status, 413);
   const next = 'b'.repeat(43);
   const settings = parse(await readFile(f.configFile, 'utf8'));
-  settings.access = { clients: [{ id: 'test', keys: [{ id: 'two', token: next }] }] };
+  settings.access = { token: next };
   await writeFile(f.configFile, stringify(settings));
   await app.access.reload();
   assert.equal((await send({ models: [] })).status, 401);
   assert.equal((await send({ models: [] }, next)).status, 200);
-  settings.access = { clients: [] };
+  settings.access = { token: '' };
   await writeFile(f.configFile, stringify(settings));
   await app.access.reload();
   assert.equal((await send({ models: [] }, next)).status, 401);

@@ -1,10 +1,11 @@
 import { createServer } from 'node:http';
+import { defaultCatalogFile } from './settings.js';
 import { AccessError } from 'fa-web-access';
 import { createConfigAccessControl } from './access.js';
 import { createCatalogStore, resolveModels } from './catalog.js';
 
 export function createCatalogServer({
-  catalogFile,
+  catalogFile = defaultCatalogFile(),
   access: accessSettings,
   configFile,
   reloadIntervalMs = 5000,

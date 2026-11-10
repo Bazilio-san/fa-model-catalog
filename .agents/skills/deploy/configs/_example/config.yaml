@@ -1,15 +1,11 @@
 deployment:
   appDirectory: /opt/services/model-catalog
   branch: master
-  catalogSource: catalog.example.yaml
   nginxSite: /etc/nginx/sites-enabled/catalog.example.com.conf
-  nginxSnippet: /etc/nginx/snippets/fa-model-catalog.conf
-  publicPort: 443
   serviceName: fa-model-catalog
 remote:
   host: server.example.com
   keyPath: C:/Users/<user>/.ssh/id_rsa
   port: 22
   publicHost: catalog.example.com
-  repository: https://example.com/organization/model-catalog.git
   user: root

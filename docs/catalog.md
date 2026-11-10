@@ -8,7 +8,9 @@ The format is defined by the [schema and validator](../src/catalog-schemas.js); 
 The server settings specify the working file, which must remain separate from source files replaced during updates.
 
 An entry can contain a model description or a string naming another entry exactly.
-A string reference is an alternative name for the same pricing record; YAML aliases are not allowed.
+A string reference is an alternative name for the same pricing record.
+Individual source strings may use YAML anchors and aliases: define `&openaiPricing` before the first URL and use
+`*openaiPricing` for subsequent occurrences in `sources` arrays. Aliases for models or collections are not allowed.
 An unknown target or reference cycle invalidates the entire revision.
 
 Lookup first checks the full name. If it is missing, lookup removes the prefix through the first @ and checks the rest.

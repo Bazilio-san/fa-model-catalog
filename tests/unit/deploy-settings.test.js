@@ -53,7 +53,7 @@ test('Show runs from another directory without connections or exposing access ke
   t.after(() => fs.rm(folder, { recursive: true, force: true }));
   const settings = parse(await fs.readFile(resolve(folder, 'local.yaml'), 'utf8'));
   const token = 'PRIVATE_TOKEN_MUST_NOT_APPEAR';
-  settings.access.clients[0].keys[0].token = token;
+  settings.access.token = token;
   await fs.writeFile(resolve(folder, 'local.yaml'), stringify(settings));
   const result = spawnSync(
     process.execPath,
@@ -67,4 +67,23 @@ test('Show runs from another directory without connections or exposing access ke
   assert.equal(shown.server, name);
   assert.equal(shown.host, 'server.example.com');
   assert.equal(shown.serviceName, 'fa-model-catalog');
+  assert.equal(shown.publicOrigin, 'https://catalog.example.com');
+  const configFile = resolve(folder, 'config.yaml');
+  const config = parse(await fs.readFile(configFile, 'utf8'));
+  for (const port of [8443, 0, 65536]) {
+    config.deployment.publicPort = port;
+    await fs.writeFile(configFile, stringify(config));
+    const custom = spawnSync(
+      process.execPath,
+      [resolve('.agents/skills/deploy/scripts/remote.js'), '--server', name, 'show'],
+      { cwd: tmpdir(), encoding: 'utf8', windowsHide: true },
+    );
+    if (port === 8443) {
+      assert.equal(custom.status, 0, custom.stderr);
+      assert.equal(JSON.parse(custom.stdout).publicOrigin, 'https://catalog.example.com:8443');
+    } else {
+      assert.notEqual(custom.status, 0);
+      assert.match(custom.stderr, /Invalid connection/);
+    }
+  }
 });

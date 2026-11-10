@@ -5,9 +5,9 @@ import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { stringify } from 'yaml';
-import { selectServer, loadSettings } from './settings.js';
+import { selectServer, loadSettings, selectCatalogSource } from './settings.js';
 import { parseCatalog } from '../../../../src/catalog-schemas.js';
-import { parseAccessFile } from 'fa-web-access';
+import { validateAccess } from '../../../../src/settings.js';
 
 const root = fileURLToPath(new URL('../../../../', import.meta.url));
 process.chdir(root);
@@ -34,11 +34,13 @@ if (!commands.includes(command)) {
 const settings = await loadSettings(selection);
 const config = settings.remote;
 const { deployment } = settings;
-const runtime = settings.server;
-const { appDirectory: app, serviceName: service, branch, nginxSite, nginxSnippet, publicPort } = deployment;
+const runtime = { ...settings.server, catalogFile: `${settings.deployment.appDirectory}/catalog.yaml` };
+const catalogSource = selectCatalogSource(selection.configDirectory, root);
+const { appDirectory: app, serviceName: service, branch, nginxSite, publicPort = 443 } = deployment;
+const repository = 'https://github.com/Bazilio-san/fa-model-catalog.git';
 const validPath = (value) =>
   typeof value === 'string' && /^\/[a-zA-Z0-9_./-]+$/.test(value) && !value.split('/').includes('..');
-for (const key of ['nginxSite', 'nginxSnippet', 'catalogSource']) {
+for (const key of ['nginxSite']) {
   if (!deployment[key]) {
     throw new Error(`Missing deployment.${key} in the selected config.yaml.`);
   }
@@ -53,8 +55,6 @@ if (
   !Number.isInteger(config.port) ||
   config.port < 1 ||
   config.port > 65535 ||
-  typeof config.repository !== 'string' ||
-  !/^(?:https:\/\/|git@)[a-zA-Z0-9._:/@-]+$/.test(config.repository) ||
   !validPath(app) ||
   app.split('/').filter(Boolean).length < 3 ||
   !/^[a-zA-Z0-9_-]+$/.test(service) ||
@@ -62,7 +62,6 @@ if (
   branch.includes('..') ||
   !validPath(nginxSite) ||
   !nginxSite.startsWith('/etc/nginx/') ||
-  nginxSnippet !== `/etc/nginx/snippets/${service}.conf` ||
   !Number.isInteger(publicPort) ||
   publicPort < 1 ||
   publicPort > 65535 ||
@@ -74,9 +73,7 @@ if (
   runtime.catalogFile !== `${app}/catalog.yaml` ||
   !Number.isFinite(runtime.reloadIntervalMs) ||
   runtime.reloadIntervalMs < 10 ||
-  Object.keys(runtime).some((key) => !['catalogFile', 'host', 'port', 'reloadIntervalMs'].includes(key)) ||
-  typeof deployment.catalogSource !== 'string' ||
-  !deployment.catalogSource
+  Object.keys(runtime).some((key) => !['catalogFile', 'host', 'port', 'reloadIntervalMs'].includes(key))
 ) {
   throw new Error('Invalid connection, deployment, or runtime settings.');
 }
@@ -94,7 +91,7 @@ if (command === 'show') {
         serviceName: service,
         healthUrl,
         publicOrigin,
-        catalogSource: deployment.catalogSource,
+        catalogSource: catalogSource,
         rulesFile: selection.rulesFile,
       },
       null,
@@ -103,9 +100,8 @@ if (command === 'show') {
   );
   process.exit(0);
 }
-const accessText = stringify(settings.access);
 try {
-  parseAccessFile(accessText);
+  validateAccess(settings.access);
 } catch {
   throw new Error('Invalid private access settings.');
 }
@@ -188,7 +184,7 @@ async function verify() {
   const authorized = await fetch(endpoint, {
     ...request,
     signal: AbortSignal.timeout(15000),
-    headers: { ...request.headers, Authorization: `Bearer ${settings.access.clients[0].keys[0].token}` },
+    headers: { ...request.headers, Authorization: `Bearer ${settings.access.token}` },
   });
   if (!authorized.ok) {
     throw new Error(`Authenticated request returned ${authorized.status}.`);
@@ -202,7 +198,7 @@ async function verify() {
 }
 
 async function configureNginx() {
-  const snippet = `# Managed by ${service}. Do not edit manually.
+  const routes = `
 location = /v1/models/resolve {
     client_max_body_size 256k;
     client_body_timeout 10s;
@@ -221,52 +217,15 @@ location = /model-catalog/health {
   const payload = Buffer.from(
     JSON.stringify({
       site: nginxSite,
-      snippet: nginxSnippet,
-      content: snippet,
+      service,
+      content: routes,
       host: config.publicHost,
       port: publicPort,
     }),
   ).toString('base64');
-  await ssh(`python3 - <<'PY'
-import base64, json, pathlib, re, subprocess
-config = json.loads(base64.b64decode('${payload}'))
-site = pathlib.Path(config['site'])
-snippet = pathlib.Path(config['snippet'])
-original = site.read_bytes()
-old_snippet = snippet.read_bytes() if snippet.exists() else None
-text = original.decode()
-include = 'include ' + str(snippet) + ';'
-# Select the existing HTTPS server block, not the HTTP redirect block.
-blocks = []
-masked = re.sub(r'#[^\\n]*', lambda match: ' ' * len(match[0]), text)
-for match in re.finditer(r'\\bserver\\s*\\{', masked):
-    depth, end = 1, match.end()
-    while end < len(masked) and depth:
-        depth += (masked[end] == '{') - (masked[end] == '}')
-        end += 1
-    block = masked[match.end():end-1]
-    names = re.search(r'\\bserver_name\\s+([^;]+);', block)
-    listening = re.search(r'\\blisten\\s+(?:[0-9.]+:)?' + str(config['port']) + r'\\b[^;]*\\bssl\\b', block)
-    if names and config['host'] in names[1].split() and listening:
-        blocks.append((match.end() + names.end(), block))
-if len(blocks) != 1:
-    raise SystemExit('Expected exactly one existing HTTPS server for the configured hostname and port.')
-if include not in blocks[0][1]:
-    at = blocks[0][0]
-    text = text[:at] + '\\n    ' + include + text[at:]
-try:
-    snippet.parent.mkdir(parents=True, exist_ok=True)
-    snippet.write_text(config['content'])
-    site.write_text(text)
-    subprocess.run(['nginx', '-t'], check=True)
-    subprocess.run(['systemctl', 'reload', 'nginx'], check=True)
-except BaseException:
-    site.write_bytes(original)
-    if old_snippet is None:
-        snippet.unlink(missing_ok=True)
-    else:
-        snippet.write_bytes(old_snippet)
-    raise
+  const script = await fs.readFile(new URL('./nginx.py', import.meta.url), 'utf8');
+  await ssh(`python3 - '${payload}' <<'PY'
+${script}
 PY`);
 }
 
@@ -293,7 +252,7 @@ async function selectRevision() {
 let selectedRevision;
 async function synchronize(force = false, check = false) {
   const revision = selectedRevision;
-  await ssh(`test "$(git -C ${app} remote get-url origin)" = '${config.repository}'
+  await ssh(`test "$(git -C ${app} remote get-url origin)" = '${repository}'
 git -C ${app} fetch origin ${branch}
 git -C ${app} merge-base --is-ancestor ${revision} origin/${branch}
 ${
@@ -304,7 +263,7 @@ chmod 755 ${app}/update.js.next
 mv ${app}/update.js.next ${app}/update.js`
 }
 cd ${app}
-flock -n /run/lock/${service}-update.lock node update.js ${force ? '-f' : ''} ${check ? '--check' : ''} --branch ${branch} --service ${service} --server-config ${runtimeFile} --health-url ${healthUrl} --revision ${revision} --repository '${config.repository}'
+flock -n /run/lock/${service}-update.lock node update.js ${force ? '-f' : ''} ${check ? '--check' : ''} --branch ${branch} --service ${service} --server-config ${runtimeFile} --health-url ${healthUrl} --revision ${revision} --repository '${repository}'
 `);
   console.log(`Selected Git revision: ${revision}`);
 }
@@ -328,7 +287,7 @@ try {
   } else if (command === 'stop') {
     await ssh(`systemctl stop ${service}\ntest "$(systemctl is-active ${service})" = inactive`);
   } else if (command === 'push-catalog') {
-    const text = await fs.readFile(resolve(deployment.catalogSource), 'utf8');
+    const text = await fs.readFile(resolve(catalogSource), 'utf8');
     parseCatalog(text);
     await upload(text, runtime.catalogFile);
   } else if (command === 'check') {
@@ -342,7 +301,7 @@ try {
     await synchronize(true);
     await verify();
   } else if (command === 'deploy') {
-    const catalogText = await fs.readFile(resolve(deployment.catalogSource), 'utf8');
+    const catalogText = await fs.readFile(resolve(catalogSource), 'utf8');
     parseCatalog(catalogText);
     await step('Inspecting target and provisioning checkout', () =>
       ssh(`
@@ -358,9 +317,9 @@ if ! systemctl cat ${service} >/dev/null 2>&1; then
 fi
 if test ! -d ${app}/.git; then
   test ! -e ${app}
-  git clone --branch ${branch} '${config.repository}' ${app}
+  git clone --branch ${branch} '${repository}' ${app}
 fi
-test "$(git -C ${app} remote get-url origin)" = '${config.repository}'
+test "$(git -C ${app} remote get-url origin)" = '${repository}'
 id ${service} >/dev/null 2>&1 || useradd --system --home /var/lib/${service} --shell /usr/sbin/nologin ${service}
 install -d -o ${service} -g ${service} -m 750 ${app}/config /var/lib/${service}
 install -d -m 755 /usr/local/lib/${service}
@@ -369,10 +328,7 @@ install -m 755 "$(command -v node)" /usr/local/lib/${service}/node
 `),
     );
     await step('Installing persistent data and runtime settings', async () => {
-      const exists = await ssh(`test -f ${runtime.catalogFile} && echo yes || echo no`, true);
-      if (exists === 'no') {
-        await upload(catalogText, runtime.catalogFile);
-      }
+      await upload(catalogText, runtime.catalogFile);
       await upload(runtimeText, runtimeFile);
     });
     await step('Installing the systemd unit', () =>

@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import fs from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -64,4 +65,9 @@ export async function loadSettings(selection) {
     documents[filename] = data;
   }
   return { ...documents['config.yaml'], ...documents['local.yaml'] };
+}
+
+export function selectCatalogSource(configDirectory, root) {
+  return [resolve(configDirectory, 'catalog.yaml'), resolve(root, 'catalog.yaml'),
+    resolve(root, 'catalog.example.yaml')].find((file) => existsSync(file));
 }

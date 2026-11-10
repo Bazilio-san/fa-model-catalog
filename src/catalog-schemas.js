@@ -1,5 +1,5 @@
 import Ajv from 'ajv';
-import { parseDocument } from 'yaml';
+import { parseDocument, visit, isScalar, isSeq, isPair } from 'yaml';
 import { createHash } from 'node:crypto';
 
 export const priceFields = [
@@ -113,7 +113,24 @@ export function parseCatalog(text) {
   if (doc.errors.length) {
     throw new Error('The catalog file contains a YAML error or a duplicate key.');
   }
-  const data = doc.toJS({ maxAliasCount: 0 });
+  visit(doc, {
+    Alias(key, node, path) {
+      const sequence = path.at(-1);
+      const pair = path.at(-2);
+      const target = node.resolve(doc);
+      if (
+        !isSeq(sequence) ||
+        !isPair(pair) ||
+        pair.key?.value !== 'sources' ||
+        pair.value !== sequence ||
+        !isScalar(target) ||
+        typeof target.value !== 'string'
+      ) {
+        throw new Error('YAML aliases may reference only individual source strings in sources arrays.');
+      }
+    },
+  });
+  const data = doc.toJS({ maxAliasCount: 10000 });
   if (!validate(data)) {
     throw new Error(`Invalid catalog structure: ${ajv.errorsText(validate.errors)}.`);
   }

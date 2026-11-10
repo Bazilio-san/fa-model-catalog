@@ -1,7 +1,6 @@
 import { timingSafeEqual } from 'node:crypto';
-import { AccessError, bearerToken, parseAccessFile } from 'fa-web-access';
-import { stringify } from 'yaml';
-import { readSettings } from './settings.js';
+import { AccessError, bearerToken } from 'fa-web-access';
+import { readSettings, validateAccess } from './settings.js';
 
 export function createConfigAccessControl({ access, configFile, reloadIntervalMs, onEvent }) {
   let entries = [];
@@ -18,11 +17,11 @@ export function createConfigAccessControl({ access, configFile, reloadIntervalMs
   }
   async function apply() {
     const settings = configFile ? (await readSettings(configFile, { allowEmptyAccess: loaded })).access : access;
-    const clients = parseAccessFile(stringify(settings), { allowEmpty: loaded });
+    validateAccess(settings, { allowEmpty: loaded });
     if (stopped) {
       return false;
     }
-    entries = clients.flatMap((client) => client.keys.map((key) => Buffer.from(key.token, 'utf8')));
+    entries = settings.token ? [Buffer.from(settings.token, 'utf8')] : [];
     loaded = true;
     return true;
   }
@@ -60,7 +59,7 @@ export function createConfigAccessControl({ access, configFile, reloadIntervalMs
       const bytes = Buffer.from(token, 'utf8');
       let matched = false;
       for (const entry of entries) {
-        matched = timingSafeEqual(entry, bytes) || matched;
+        matched = (entry.length === bytes.length && timingSafeEqual(entry, bytes)) || matched;
       }
       if (!matched) {
         throw new AccessError();
