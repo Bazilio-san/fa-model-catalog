@@ -67,18 +67,18 @@ The wrapper also works from other directories when invoked by its absolute path.
 Before changing a server, run `show` and check the host, checkout, branch, service, endpoints, and catalog source.
 `show` reads local settings without connecting or printing credentials.
 
-| Command | Purpose |
-| --- | --- |
-| `inspect` | Inspect target identity, tools, Nginx site, and listener port. |
-| `deploy` | Provision the service, install catalog and settings, configure routes, start, and verify. |
-| `check` | Fetch Git state and check whether synchronization is needed without restarting. |
-| `update` | Synchronize committed code through the project updater and verify. |
-| `start`, `restart` | Synchronize code and force a service restart. |
-| `stop` | Stop the selected service. |
-| `status`, `logs` | Read service status or recent logs. |
-| `push-catalog` | Validate and replace the catalog using the selection order above. |
-| `push-config` | Upload application settings, reconcile Nginx routes, restart, and verify. |
-| `verify` | Check service readiness, public access control, model retrieval, and logs. |
+| Command            | Purpose                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------------------- |
+| `inspect`          | Inspect target identity, tools, Nginx site, and listener port.                            |
+| `deploy`           | Provision the service, install catalog and settings, configure routes, start, and verify. |
+| `check`            | Fetch Git state and check whether synchronization is needed without restarting.           |
+| `update`           | Synchronize committed code through the project updater and verify.                        |
+| `start`, `restart` | Synchronize code and force a service restart.                                             |
+| `stop`             | Stop the selected service.                                                                |
+| `status`, `logs`   | Read service status or recent logs.                                                       |
+| `push-catalog`     | Validate and replace the catalog using the selection order above.                         |
+| `push-config`      | Upload application settings, reconcile Nginx routes, restart, and verify.                 |
+| `verify`           | Check service readiness, public access control, model retrieval, and logs.                |
 
 ## Operational rules
 

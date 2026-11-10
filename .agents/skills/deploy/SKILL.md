@@ -62,7 +62,7 @@ Run `node .agents/skills/deploy/scripts/remote.js --server <name> <command>`:
 | start / restart | Use the same updater with a forced restart, even when the commit is unchanged.                 |
 | stop            | Stop only this project's service.                                                              |
 | status / logs   | Read service state, readiness, installed commit, or recent logs.                               |
-| push-catalog    | Validate and atomically replace the catalog from the automatically selected local file.                     |
+| push-catalog    | Validate and atomically replace the catalog from the automatically selected local file.        |
 | push-config     | Replace config/local.yaml including keys, reconcile nginx routes, and force an update/restart. |
 | verify          | Check systemd, internal/public readiness, access denial, authenticated model lookup, and logs. |
 

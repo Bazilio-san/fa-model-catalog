@@ -9,14 +9,17 @@ export function defaultCatalogFile(root = fileURLToPath(new URL('../', import.me
 }
 
 export function validateAccess(access, { allowEmpty = false } = {}) {
-  if (!access || typeof access !== 'object' || Array.isArray(access) ||
-      Object.keys(access).some((key) => key !== 'token') ||
-      !(typeof access.token === 'string' && /^[A-Za-z0-9_-]{43,}$/.test(access.token)) &&
-      !(allowEmpty && access.token === '')) {
+  if (
+    !access ||
+    typeof access !== 'object' ||
+    Array.isArray(access) ||
+    Object.keys(access).some((key) => key !== 'token') ||
+    (!(typeof access.token === 'string' && /^[A-Za-z0-9_-]{43,}$/.test(access.token)) &&
+      !(allowEmpty && access.token === ''))
+  ) {
     throw new Error('Invalid access.token.');
   }
 }
-
 
 export async function readSettings(file, { allowEmptyAccess = false } = {}) {
   try {
@@ -45,7 +48,14 @@ export async function readSettings(file, { allowEmptyAccess = false } = {}) {
       throw new Error();
     }
     validateAccess(data.access, { allowEmpty: allowEmptyAccess });
-    return { ...data, server: { ...config, catalogFile: config.catalogFile === undefined ? defaultCatalogFile() : resolve(dirname(file), config.catalogFile) } };
+    return {
+      ...data,
+      server: {
+        ...config,
+        catalogFile:
+          config.catalogFile === undefined ? defaultCatalogFile() : resolve(dirname(file), config.catalogFile),
+      },
+    };
   } catch {
     throw new Error('Invalid application settings: check server and access in config/local.yaml.');
   }

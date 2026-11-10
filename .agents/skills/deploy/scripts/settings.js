@@ -68,6 +68,9 @@ export async function loadSettings(selection) {
 }
 
 export function selectCatalogSource(configDirectory, root) {
-  return [resolve(configDirectory, 'catalog.yaml'), resolve(root, 'catalog.yaml'),
-    resolve(root, 'catalog.example.yaml')].find((file) => existsSync(file));
+  return [
+    resolve(configDirectory, 'catalog.yaml'),
+    resolve(root, 'catalog.yaml'),
+    resolve(root, 'catalog.example.yaml'),
+  ].find((file) => existsSync(file));
 }
