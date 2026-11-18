@@ -7,7 +7,7 @@ Read [SKILL.md](SKILL.md) before deployment or maintenance. It contains the oper
 
 Copy [configs/_example](configs/_example/) to `configs/<server_name>/` and fill in these required files:
 
-- `config.yaml`: SSH connection, public hostname, checkout directory, branch, service name, and existing Nginx site.
+- `config.yaml`: SSH connection, public hostname, checkout directory, branch, service name, and web server file.
 - `local.yaml`: shared access token and application listener settings.
 - `rules.md`: installation purpose, restrictions, checks, and recovery instructions.
 
@@ -24,11 +24,15 @@ Set `deployment.nodeBinDirectory`, for example `/opt/node-22/bin`, when non-inte
 Node.js older than 22 first. The wrapper puts it first on the remote `PATH` for `node`, `npm`, and `update.js`.
 The service runs a copy of that Node.js installed at deployment; rerun `deploy` after changing this setting.
 `remote.port` is the SSH port, while `server.port` is the application's loopback port.
-Before initial deployment, inspect Nginx on the selected server and prepare HTTPS using its existing conventions.
-Follow the Nginx configuration section in [SKILL.md](SKILL.md). Save installation-specific files as
+Set `deployment.siteConfig` to the web server file that holds this installation's routes: a site file under
+`/etc/nginx/` or a Caddyfile under `/etc/caddy/`. The wrapper derives the web server from that path.
+Before initial deployment, inspect the web server that listens on the selected server's HTTPS port, Nginx or Caddy,
+and prepare HTTPS using its existing conventions.
+Follow the web server configuration section in [SKILL.md](SKILL.md). Save installation-specific files as
 `configs/<server_name>/*.config` and record their destinations and application conditions in `rules.md`.
-Reuse them only when setup or repair is needed or a Nginx change was requested; preserve working remote settings.
-The wrapper never writes Nginx files or reloads Nginx, including during `deploy` and `push-config`.
+Reuse them only when setup or repair is needed or a web server change was requested; preserve working remote
+settings.
+The wrapper never writes web server files or reloads the web server, including during `deploy` and `push-config`.
 
 Set the shared access token directly in `local.yaml`:
 
@@ -76,7 +80,7 @@ Before changing a server, run `show` and check the host, checkout, branch, servi
 
 | Command            | Purpose                                                                         |
 | ------------------ | ------------------------------------------------------------------------------- |
-| `inspect`          | Inspect target identity, tools, Nginx site, and listener port.                  |
+| `inspect`          | Inspect target identity, tools, web server file, and listener port.             |
 | `deploy`           | Provision the service, install catalog and settings, start, and verify.         |
 | `check`            | Fetch Git state and check whether synchronization is needed without restarting. |
 | `update`           | Synchronize committed code through the project updater and verify.              |

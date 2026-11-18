@@ -1,8 +1,8 @@
 deployment:
   appDirectory: /opt/services/model-catalog
   branch: master
-  nginxSite: /etc/nginx/sites-enabled/catalog.example.com.conf
   serviceName: fa-model-catalog
+  siteConfig: /etc/nginx/sites-enabled/catalog.example.com.conf
 remote:
   host: server.example.com
   keyPath: C:/Users/<user>/.ssh/id_rsa

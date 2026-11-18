@@ -36,15 +36,15 @@ const config = settings.remote;
 const { deployment } = settings;
 const runtime = { ...settings.server, catalogFile: `${settings.deployment.appDirectory}/catalog.yaml` };
 const catalogSource = selectCatalogSource(selection.configDirectory, root);
-const { appDirectory: app, serviceName: service, branch, nginxSite, nodeBinDirectory, publicPort = 443 } = deployment;
+const { appDirectory: app, serviceName: service, branch, siteConfig, nodeBinDirectory, publicPort = 443 } = deployment;
 const repository = 'https://github.com/Bazilio-san/fa-model-catalog.git';
 const validPath = (value) =>
   typeof value === 'string' && /^\/[a-zA-Z0-9_./-]+$/.test(value) && !value.split('/').includes('..');
-for (const key of ['nginxSite']) {
-  if (!deployment[key]) {
-    throw new Error(`Missing deployment.${key} in the selected config.yaml.`);
-  }
+if (!siteConfig) {
+  throw new Error('Missing deployment.siteConfig in the selected config.yaml.');
 }
+// The web server publishing the service is known from the location of its configuration file.
+const webServer = ['nginx', 'caddy'].find((name) => String(siteConfig).startsWith(`/etc/${name}/`));
 if (
   !config ||
   !['host', 'publicHost', 'user'].every(
@@ -60,8 +60,8 @@ if (
   !/^[a-zA-Z0-9_-]+$/.test(service) ||
   !/^[a-zA-Z0-9_][a-zA-Z0-9_/-]*$/.test(branch) ||
   branch.includes('..') ||
-  !validPath(nginxSite) ||
-  !nginxSite.startsWith('/etc/nginx/') ||
+  !validPath(siteConfig) ||
+  !webServer ||
   (nodeBinDirectory !== undefined && !validPath(nodeBinDirectory)) ||
   !Number.isInteger(publicPort) ||
   publicPort < 1 ||
@@ -91,6 +91,8 @@ if (command === 'show') {
         appDirectory: app,
         serviceName: service,
         nodeBinDirectory: nodeBinDirectory ?? 'remote PATH',
+        webServer,
+        siteConfig,
         healthUrl,
         publicOrigin,
         catalogSource: catalogSource,
@@ -246,7 +248,7 @@ try {
   }
   if (command === 'inspect') {
     await ssh(
-      `hostname\nnode --version\ncommand -v nginx\ncommand -v flock\ntest -f ${nginxSite}\nss -H -ltn sport = :${runtime.port}`,
+      `hostname\nnode --version\ncommand -v ${webServer}\ncommand -v flock\ntest -f ${siteConfig}\nss -H -ltn sport = :${runtime.port}`,
     );
   } else if (command === 'verify') {
     await verify();
@@ -279,9 +281,9 @@ try {
 hostname
 node --version
 command -v git
-command -v nginx
+command -v ${webServer}
 command -v flock
-test -f ${nginxSite}
+test -f ${siteConfig}
 if ! systemctl cat ${service} >/dev/null 2>&1; then
   test -z "$(ss -H -ltn sport = :${runtime.port})"
 fi

@@ -1,5 +1,5 @@
 # Set baseUrl (HTTPS origin without a trailing slash) and accessToken in your private HTTP client environment.
-# Short routes require the installation-specific Nginx configuration.
+# Short routes require the installation-specific web server configuration.
 # Both data routes accept the same JSON body and bearer token.
 
 ### Short health route: 200, status ok

@@ -27,13 +27,16 @@ Keep private keys outside the project. Ask only for missing settings; never copy
 The wrapper works independently of its caller's directory. Select the first existing catalog from
 `configs/<server>/catalog.yaml`, root `catalog.yaml`, then root `catalog.example.yaml`.
 Copy it to the remote project root as `catalog.yaml`.
-The remote section defines SSH connection and public hostname. The repository is fixed to this project. Omit deployment.publicPort for HTTPS port 443.
-Set it only for a nonstandard HTTPS port.
+The remote section defines SSH connection and public hostname. The repository is fixed to this project.
+Omit deployment.publicPort for HTTPS port 443. Set it only for a nonstandard HTTPS port.
 Set deployment.nodeBinDirectory when non-interactive SSH finds Node.js older than 22 first; the wrapper
-puts that directory first on the remote PATH for node, npm, the service's Node.js copy, and update.js. The server section defines loopback settings
-and persistent catalog paths. The deployment section defines the checkout, service, branch, public HTTPS port,
-existing nginx site and local catalog source. Keep real domains and paths out of
-public examples.
+puts that directory first on the remote PATH for node, npm, the service's Node.js copy, and update.js.
+The server section defines loopback settings and persistent catalog paths. The deployment section defines the
+checkout, service, branch, public HTTPS port, web server file and local catalog source. Keep real domains and paths
+out of public examples.
+Set deployment.siteConfig to the live file that holds this installation's routes: a site file under `/etc/nginx/`
+or a Caddyfile under `/etc/caddy/`. The wrapper derives the web server from that path and checks that the program
+is installed and the file exists.
 Upload the selected local.yaml as `<appDirectory>/config/local.yaml`, containing both `server` and `access`.
 There is no separate key file or accessFile setting. Never upload config.yaml or the remote section.
 For local startup, use root `config/local.yaml`; `npm start` reads it by default. Keep it outside Git and packages.
@@ -44,35 +47,47 @@ For multiple servers, run the requested command separately with each explicit na
 When installations share a host, use distinct checkout paths, service names, loopback ports, and public
 hostname/port combinations so their managed routes do not overlap. Updating one installation must not affect another.
 
-## Nginx configuration
+## Web server configuration
 
-Before an initial deployment, inspect the selected server's enabled sites, includes, certificate coverage and expiry,
+Nginx or Caddy publishes the service. Before an initial deployment, find which program listens on ports 80 and 443:
+an installed but stopped web server publishes nothing, and its leftover files are no place for new routes.
+Inspect that web server's enabled sites, includes, certificate coverage and expiry,
 listeners, and hostname resolution. Use the server's existing conventions to choose a suitable arrangement:
 a dedicated site, routes in a shared site, or an included fragment. Do not assume another server's layout applies.
 An absent site is a reason to investigate and configure it, not to stop when the required settings are discoverable.
 Read certificate metadata and paths only; never read private key contents.
 
-Save the actual Nginx configuration in `configs/<name>/*.config`. These are private, installation-specific artifacts,
-not universal templates. In that installation's `rules.md`, record each artifact's remote destination, whether it is a
-complete dedicated site or a fragment, its inclusion or symlink arrangement, certificate dependencies, and checks.
+Save the actual web server configuration in `configs/<name>/*.config`. These are private, installation-specific
+artifacts, not universal templates. In that installation's `rules.md`, record each artifact's remote destination,
+whether it is a complete dedicated site or a fragment, its inclusion or symlink arrangement, certificate
+dependencies, and checks.
 For an existing installation without saved artifacts, capture its working configuration without changing the server.
 Do not store private key contents or access tokens in these artifacts.
 
 On subsequent runs, check the service and relevant live configuration first. If the intended endpoint and routes
-already work, leave remote Nginx files and the running Nginx process alone, even during `deploy` or `push-config`.
+already work, leave remote web server files and the running web server alone, even during `deploy` or `push-config`.
 A saved artifact is a recovery source, not a reason to overwrite a working site. Apply it only for initial setup,
-a demonstrated missing or incorrect configuration, or an explicit request to change Nginx. Compare saved content
-with the live configuration before applying it; preserve changes made by administrators and unrelated routes.
+a demonstrated missing or incorrect configuration, or an explicit request to change the web server. Compare saved
+content with the live configuration before applying it; preserve changes made by administrators and unrelated routes.
 If listener or endpoint settings change, reconcile only the affected configuration as needed before verification.
 
 When a change is needed, adapt and save the configuration for this installation, preserve the affected remote files
-for rollback, and install only the necessary files or fragments. Test with `nginx -t` before reloading. Restore the
-previous files on test or reload failure and confirm Nginx remains operational; remove only new files from this task.
+for rollback, and install only the necessary files or fragments. Test with `nginx -t` or
+`caddy validate --adapter caddyfile --config <file>` before reloading, and reload instead of restarting. Restore the
+previous files on test or reload failure and confirm the web server remains operational; remove only new files from
+this task.
 Do not replace a shared site wholesale or change another application's routes, certificates, or listeners.
 Verify TLS with certificate validation, public health, and authenticated and unauthenticated model requests.
 
-The wrapper manages application deployment and verification only; it never writes or reloads Nginx configuration.
-Prepare any necessary Nginx configuration before invoking `deploy`, which verifies the public endpoint at the end.
+In a shared Caddyfile, add one site block for the public hostname and keep it outside sections that other projects'
+tools rewrite. Caddy obtains the certificate itself after the reload, once the hostname resolves publicly.
+Create the site's log file for the Caddy service user before validating as root, so that validation does not
+leave a file Caddy cannot write.
+
+The wrapper manages application deployment and verification only; it never writes or reloads web server
+configuration.
+Prepare any necessary web server configuration before invoking `deploy`, which verifies the public endpoint at the
+end.
 The routes must expose `POST /v1/models/resolve` with the Authorization header preserved and
 `/model-catalog/health` mapped to the loopback `/health`. Choose other proxy settings for the installation.
 
@@ -83,7 +98,7 @@ Run `node .agents/skills/deploy/scripts/remote.js --server <name> <command>`:
 | Command         | Purpose                                                                                        |
 | --------------- | ---------------------------------------------------------------------------------------------- |
 | show            | Show the selected installation and rules path without connecting or printing secrets.          |
-| inspect         | Check target identity, tools, existing nginx site, and loopback port.                          |
+| inspect         | Check target identity, tools, web server file, and loopback port.                              |
 | deploy          | Clone Git code, provision persistent data and systemd, start, and verify.                      |
 | check           | Fetch Git state and report whether the server needs synchronization; do not restart.           |
 | update          | Update the selected Git commit through root update.js, then verify the public endpoint.        |
@@ -121,7 +136,7 @@ Never stop another service if the configured loopback port is occupied.
 
 For a server move, validate and preserve the old catalog and config/local.yaml first.
 Deploy and verify the new endpoint before stopping the old service. Remove only the identified old service's unit,
-nginx rules, runtime, and checkout after checking hostname, unit paths, and repository ownership.
+web server rules, runtime, and checkout after checking hostname, unit paths, and repository ownership.
 Never remove another application's virtual host, shared certificate, or unrelated files.
 
 ## Verification and client address

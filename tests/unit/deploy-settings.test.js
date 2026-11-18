@@ -55,11 +55,13 @@ test('Show runs from another directory without connections or exposing access ke
   const token = 'PRIVATE_TOKEN_MUST_NOT_APPEAR';
   settings.access.token = token;
   await fs.writeFile(resolve(folder, 'local.yaml'), stringify(settings));
-  const result = spawnSync(
-    process.execPath,
-    [resolve('.agents/skills/deploy/scripts/remote.js'), '--server', name, 'show'],
-    { cwd: tmpdir(), encoding: 'utf8', windowsHide: true },
-  );
+  const show = () =>
+    spawnSync(process.execPath, [resolve('.agents/skills/deploy/scripts/remote.js'), '--server', name, 'show'], {
+      cwd: tmpdir(),
+      encoding: 'utf8',
+      windowsHide: true,
+    });
+  const result = show();
   assert.equal(result.status, 0, result.stderr);
   assert(!result.stdout.includes(token));
   assert(!result.stdout.includes('keyPath'));
@@ -69,16 +71,14 @@ test('Show runs from another directory without connections or exposing access ke
   assert.equal(shown.serviceName, 'fa-model-catalog');
   assert.equal(shown.publicOrigin, 'https://catalog.example.com');
   assert.equal(shown.nodeBinDirectory, 'remote PATH');
+  assert.equal(shown.webServer, 'nginx');
+  assert.equal(shown.siteConfig, '/etc/nginx/sites-enabled/catalog.example.com.conf');
   const configFile = resolve(folder, 'config.yaml');
   const config = parse(await fs.readFile(configFile, 'utf8'));
   for (const nodeBinDirectory of ['/opt/node-22/bin', 'opt/node/bin', '/opt/../bin', '/opt/node bin']) {
     config.deployment.nodeBinDirectory = nodeBinDirectory;
     await fs.writeFile(configFile, stringify(config));
-    const custom = spawnSync(
-      process.execPath,
-      [resolve('.agents/skills/deploy/scripts/remote.js'), '--server', name, 'show'],
-      { cwd: tmpdir(), encoding: 'utf8', windowsHide: true },
-    );
+    const custom = show();
     if (nodeBinDirectory === '/opt/node-22/bin') {
       assert.equal(custom.status, 0, custom.stderr);
       assert.equal(JSON.parse(custom.stdout).nodeBinDirectory, nodeBinDirectory);
@@ -88,14 +88,35 @@ test('Show runs from another directory without connections or exposing access ke
     }
   }
   delete config.deployment.nodeBinDirectory;
+  const exampleSiteConfig = config.deployment.siteConfig;
+  for (const siteConfig of [
+    '/etc/caddy/Caddyfile',
+    '/etc/apache2/sites-enabled/catalog.conf',
+    'etc/nginx/catalog.conf',
+    '/etc/nginx/../caddy/Caddyfile',
+  ]) {
+    config.deployment.siteConfig = siteConfig;
+    await fs.writeFile(configFile, stringify(config));
+    const custom = show();
+    if (siteConfig === '/etc/caddy/Caddyfile') {
+      assert.equal(custom.status, 0, custom.stderr);
+      assert.equal(JSON.parse(custom.stdout).webServer, 'caddy');
+      assert.equal(JSON.parse(custom.stdout).siteConfig, siteConfig);
+    } else {
+      assert.notEqual(custom.status, 0);
+      assert.match(custom.stderr, /Invalid connection/);
+    }
+  }
+  delete config.deployment.siteConfig;
+  await fs.writeFile(configFile, stringify(config));
+  const missing = show();
+  assert.notEqual(missing.status, 0);
+  assert.match(missing.stderr, /Missing deployment\.siteConfig/);
+  config.deployment.siteConfig = exampleSiteConfig;
   for (const port of [8443, 0, 65536]) {
     config.deployment.publicPort = port;
     await fs.writeFile(configFile, stringify(config));
-    const custom = spawnSync(
-      process.execPath,
-      [resolve('.agents/skills/deploy/scripts/remote.js'), '--server', name, 'show'],
-      { cwd: tmpdir(), encoding: 'utf8', windowsHide: true },
-    );
+    const custom = show();
     if (port === 8443) {
       assert.equal(custom.status, 0, custom.stderr);
       assert.equal(JSON.parse(custom.stdout).publicOrigin, 'https://catalog.example.com:8443');
