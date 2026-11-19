@@ -1629,6 +1629,24 @@ models:
     outB: 2.4
     outF: 2.4
     outFast: 2.4
+  jev-1.14.0:
+    billing:
+      kind: tokens
+      per: 1000000
+      unit: tokens
+    capabilities:
+      explicitPromptCaching: false
+      promptCacheKey: false
+      reasoningEfforts: []
+    evidence:
+      sources:
+        - https://docs.typesafe.ai/go/models
+      status: confirmed
+    inp: 0.042
+    kT: 64
+    modes:
+      - standard
+    out: 0
   o4-mini:
     billing:
       kind: tokens
