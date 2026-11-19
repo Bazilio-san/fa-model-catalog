@@ -12,7 +12,7 @@ models:
     evidence:
       sources:
         - &openaiPricing https://developers.openai.com/api/docs/pricing
-      status: insufficient
+      status: confirmed
     inp: 1.5
     inpB: 1.5
     inpC: 1.5
@@ -48,7 +48,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -76,7 +76,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -104,7 +104,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -132,7 +132,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.04
     inpB: 0.04
     inpC: 0.04
@@ -160,7 +160,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2
     inpB: 1
     inpC: 2
@@ -188,7 +188,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -216,7 +216,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -253,7 +253,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.15
     inpB: 0.15
     inpC: 0.03
@@ -282,7 +282,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2
     inpB: 1
     inpC: 0.5
@@ -311,7 +311,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.4
     inpB: 0.2
     inpC: 0.1
@@ -340,7 +340,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.1
     inpB: 0.05
     inpC: 0.025
@@ -369,7 +369,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2.5
     inpB: 1.25
     inpC: 1.25
@@ -398,7 +398,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2.5
     inpB: 2.5
     inpC: 2.5
@@ -427,7 +427,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.15
     inpB: 0.075
     inpC: 0.075
@@ -456,7 +456,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -484,7 +484,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -512,7 +512,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -540,7 +540,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 1.25
     inpB: 1.25
     inpC: 1.25
@@ -569,7 +569,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.6
     inpB: 0.6
     inpC: 0.6
@@ -597,7 +597,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 5
     inpB: 5
     inpC: 5
@@ -625,7 +625,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -653,7 +653,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2.5
     inpB: 2.5
     inpC: 2.5
@@ -682,7 +682,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2.5
     inpB: 2.5
     inpC: 2.5
@@ -711,7 +711,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 1.25
     inpB: 0.625
     inpC: 0.125
@@ -750,7 +750,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.25
     inpB: 0.125
     inpC: 0.025
@@ -782,7 +782,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.05
     inpB: 0.025
     inpC: 0.005
@@ -821,7 +821,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 1.25
     inpB: 1.25
     inpC: 0.125
@@ -850,7 +850,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 1.25
     inpB: 0.625
     inpC: 0.125
@@ -882,7 +882,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 1.75
     inpB: 0.875
     inpC: 0.175
@@ -914,7 +914,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 1.75
     inpB: 1.75
     inpC: 0.175
@@ -950,7 +950,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 1.75
     inpB: 1.75
     inpC: 0.175
@@ -986,7 +986,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2.5
     inpB: 1.25
     inpC: 0.25
@@ -1026,7 +1026,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.75
     inpB: 0.375
     inpC: 0.075
@@ -1065,7 +1065,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.2
     inpB: 0.1
     inpC: 0.02
@@ -1104,7 +1104,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 5
     inpB: 2.5
     inpC: 0.5
@@ -1143,7 +1143,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.2
     inpB: 0.1
     inpC: 0.02
@@ -1182,7 +1182,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 5
     inpB: 2.5
     inpC: 0.5
@@ -1221,7 +1221,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2
     inpB: 1
     inpC: 0.2
@@ -1260,7 +1260,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 10
     inpB: 5
     inpC: 1
@@ -1299,7 +1299,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.1
     inpB: 0.05
     inpC: 0.01
@@ -1338,7 +1338,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2
     inpB: 1
     inpC: 0.2
@@ -1375,7 +1375,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2
     inpB: 1
     inpC: 0.1
@@ -1408,7 +1408,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 1
     inpB: 0.5
     inpC: 0.05
@@ -1440,7 +1440,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2.5
     inpB: 2.5
     inpC: 2.5
@@ -1469,7 +1469,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2.5
     inpB: 2.5
     inpC: 2.5
@@ -1498,7 +1498,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.6
     inpB: 0.6
     inpC: 0.6
@@ -1527,7 +1527,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     high:
       1024x1024: 0.211
       1024x1536: 0.165
@@ -1554,7 +1554,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 4
     inpB: 4
     inpC: 0.4
@@ -1583,7 +1583,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 4
     inpB: 4
     inpC: 0.4
@@ -1612,7 +1612,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.6
     inpB: 0.6
     inpC: 0.06
@@ -1659,7 +1659,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 1.1
     inpB: 0.55
     inpC: 0.275
@@ -1691,7 +1691,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 2
     inpB: 2
     inpC: 2
@@ -1732,7 +1732,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.13
     inpC: 0.13
     inpCF: 0.13
@@ -1758,7 +1758,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -1787,7 +1787,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0
     inpB: 0
     inpC: 0
@@ -1829,7 +1829,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.13
     inpB: 0.13
     inpC: 0.13
@@ -1868,7 +1868,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.02
     inpB: 0.02
     inpC: 0.02
@@ -1903,7 +1903,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 15
     inpB: 15
     inpC: 15
@@ -1938,7 +1938,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 30
     inpB: 30
     inpC: 30
@@ -1973,7 +1973,7 @@ models:
     evidence:
       sources:
         - *openaiPricing
-      status: insufficient
+      status: confirmed
     inp: 0.006
     inpB: 0.006
     inpC: 0.006
